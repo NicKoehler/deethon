@@ -9,6 +9,7 @@ from .utils.crypt import *
 from .utils.constants import Consts
 from .utils.tag import tag
 
+
 class Deezer:
     def __init__(self, arl_token: str):
         self.arl_token = arl_token
@@ -23,9 +24,8 @@ class Deezer:
             "input": "3",
             "method": method,
         }
-        resp = self.req.post(Consts.HIDDEN_API_URL, params=params,
+        return self.req.post(Consts.HIDDEN_API_URL, params=params,
                              json=json).json()["results"]
-        return resp
 
     def download(self, url: str, bitrate: str) -> Path:
         track_id = url.split("/")[-1]
@@ -39,7 +39,7 @@ class Deezer:
         if "author" in track_info["SNG_CONTRIBUTORS"].keys():
             track.add_tags(author=track_info["SNG_CONTRIBUTORS"]["author"])
 
-        quality = get_quality(bitrate)
+        bitrate = get_quality(bitrate)
 
         ids = track_info["SNG_ID"]
         md5 = track_info["MD5_ORIGIN"]
@@ -53,4 +53,3 @@ class Deezer:
         tag(file_path, track)
 
         return file_path
-
