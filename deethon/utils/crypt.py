@@ -11,8 +11,8 @@ def md5hex(data):
     return hashed
 
 
-def genurl(md5, quality, ids, media) -> str:
-    data = b"\xa4".join(a.encode() for a in [md5, quality, ids, str(media)])
+def genurl(md5, quality, track_id: int, media) -> str:
+    data = b"\xa4".join(a.encode() for a in [md5, quality, str(track_id), str(media)])
     data = b"\xa4".join([md5hex(data), data]) + b"\xa4"
     if len(data) % 16:
         data += b"\x00" * (16 - len(data) % 16)

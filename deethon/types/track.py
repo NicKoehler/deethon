@@ -1,10 +1,13 @@
 import requests
 from deethon.types.album import Album
+from deethon import exceptions
 
  
 class Track:
     def __init__(self, track_id: (str, int)):
         r = requests.get(f"https://api.deezer.com/track/{track_id}").json()
+        if "error" in r:
+            raise exceptions.DeezerApiError(r['error']['type'], r['error']['message'], r['error']['code'])
         self.artist = r['artist']['name']
         self.bpm = r['bpm']
         self.disk_number = r['disk_number']
