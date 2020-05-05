@@ -1,0 +1,8 @@
+__pycache__/
+.vscode/
+.tox/
+build/
+dist/
+Songs/
+*.egg-info/
+*.cmd
