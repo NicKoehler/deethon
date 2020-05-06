@@ -1,6 +1,6 @@
 # Deethon
 
-Python3 library to easily download music from Deezer
+Python3 library to easily download music from [Deezer](https://www.deezer.com).
 
 ## Quickstart
 
@@ -46,3 +46,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Do not use this package illegaly and against Deezer's [Terms Of Use](https://www.deezer.com/legal/cgu).
