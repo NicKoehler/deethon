@@ -1,8 +1,9 @@
 import requests
-from deethon.types.album import Album
-from deethon import exceptions
 
- 
+from .album import Album
+from .. import exceptions
+
+
 class Track:
     def __init__(self, track_id: (str, int)):
         r = requests.get(f"https://api.deezer.com/track/{track_id}").json()

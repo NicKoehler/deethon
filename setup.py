@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="deethon",
-    version="0.1.1",
+    version="0.1.2",
     author="Aykut Yilmaz",
     author_email="aykuxt@gmail.com",
     description="Python3 library to easily download music from Deezer",

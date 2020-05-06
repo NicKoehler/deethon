@@ -22,7 +22,7 @@ class Album:
         self.cover_xl_url = r["cover_xl"]
 
     @property
-    def cover_xl(self):
+    def cover_xl(self) -> bytes:
         if self._cover_xl is None:
             self._cover_xl = requests.get(self.cover_xl_url).content
         return self._cover_xl

@@ -1,15 +1,10 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
-import mutagen
 import requests
 
+from . import exceptions, consts, utils, tag
 from .types import Track
-from .utils.helper import get_quality, get_file_path
-from .utils.crypt import *
-from .utils.constants import Consts
-from .utils.tag import tag
-from deethon import exceptions
 
 
 class Deezer:
@@ -17,7 +12,7 @@ class Deezer:
         self.arl_token = arl_token
         self.req = requests.Session()
         self.req.cookies["arl"] = self.arl_token
-        self.csrf_token = self.__get_api(Consts.METHOD_GET_USER)["checkForm"]
+        self.csrf_token = self.__get_api(consts.METHOD_GET_USER)["checkForm"]
 
     def __get_api(self, method, api_token="null", json=None) -> dict:
         params = {
@@ -26,11 +21,11 @@ class Deezer:
             "input": "3",
             "method": method,
         }
-        return self.req.post(Consts.HIDDEN_API_URL, params=params,
+        return self.req.post(consts.API_URL, params=params,
                              json=json).json()["results"]
 
     def download(self, url: str, bitrate: str):
-        match = re.search(r"https?:\/\/(?:www\.)?deezer\.com\/(?:\w+\/)?(\w+)\/(\d+)", url)
+        match = re.search(r"^https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
             mode = match.group(1)
             content_id = match.group(2)
@@ -43,7 +38,7 @@ class Deezer:
 
     def download_track(self, track: Track, bitrate: str) -> Path:
         json = {"sng_id": track.id}
-        track_info = self.__get_api(Consts.METHOD_GET_DATA, self.csrf_token,
+        track_info = self.__get_api(consts.METHOD_GET_TRACK, self.csrf_token,
                                     json)
 
         md5 = track_info["MD5_ORIGIN"]
@@ -53,15 +48,15 @@ class Deezer:
         if "author" in track_info["SNG_CONTRIBUTORS"]:
             track.add_tags(author=track_info["SNG_CONTRIBUTORS"]["author"])
 
-        bitrate = get_quality(bitrate)
+        bitrate = utils.get_quality(bitrate)
 
-        download_url = genurl(md5, bitrate, track.id, track_info["MEDIA_VERSION"])
+        download_url = utils.get_stream_url(md5, bitrate, track.id, track_info["MEDIA_VERSION"])
 
         ext = ".flac" if bitrate == "9" else ".mp3"
-        file_path = get_file_path(track, ext)
+        file_path = utils.get_file_path(track, ext)
 
         crypt = self.req.get(download_url)
-        decryptfile(crypt.iter_content(2048), calcbfkey(track.id), file_path)
-        tag(file_path, track)
+        utils.decrypt_file(crypt.iter_content(2048), track.id, file_path)
+        tag.tag(file_path, track)
 
         return file_path
