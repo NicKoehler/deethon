@@ -7,3 +7,4 @@ dist/
 Songs/
 *.egg-info/
 *.cmd
+*.lock
