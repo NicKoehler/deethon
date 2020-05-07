@@ -25,7 +25,7 @@ class Deezer:
                              json=json).json()["results"]
 
     def download(self, url: str, bitrate: str):
-        match = re.search(r"^https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
+        match = re.match(r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
             mode = match.group(1)
             content_id = match.group(2)
