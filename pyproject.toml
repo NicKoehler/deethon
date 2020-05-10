@@ -20,7 +20,7 @@ requests = "^2.23.0"
 pycryptodome = "^3.9.7"
 
 [tool.poetry.dev-dependencies]
-tox = "^3.15.0"
+pytest = "^5.4.2"
 
 [build-system]
 requires = ["poetry>=0.12"]
