@@ -1,4 +1,5 @@
 from functools import cached_property, lru_cache
+from typing import Union
 
 import requests
 
@@ -7,7 +8,7 @@ from . import exceptions
 
 @lru_cache
 class Album:
-    def __init__(self, album_id: int):
+    def __init__(self, album_id: Union[int, str]):
         self.r = requests.get(f"https://api.deezer.com/album/{album_id}").json()
         self.id = self.r["id"]
         self.title = self.r["title"]
@@ -31,7 +32,7 @@ class Album:
 
 @lru_cache
 class Track:
-    def __init__(self, track_id: int):
+    def __init__(self, track_id: Union[int, str]):
         r = requests.get(f"https://api.deezer.com/track/{track_id}").json()
         if "error" in r:
             raise exceptions.DeezerApiError(r['error']['type'], r['error']['message'], r['error']['code'])
