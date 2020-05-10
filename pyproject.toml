@@ -14,7 +14,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
 mutagen = "^1.44.0"
 requests = "^2.23.0"
 pycryptodome = "^3.9.7"
