@@ -22,6 +22,18 @@ class Album:
         self.label = self.r["label"]
 
     @cached_property
+    def cover_small(self) -> bytes:
+        return requests.get(self.r["cover_small"]).content
+
+    @cached_property
+    def cover_medium(self) -> bytes:
+        return requests.get(self.r["cover_medium"]).content
+
+    @cached_property
+    def cover_big(self) -> bytes:
+        return requests.get(self.r["cover_big"]).content
+
+    @cached_property
     def cover_xl(self) -> bytes:
         return requests.get(self.r["cover_xl"]).content
 
