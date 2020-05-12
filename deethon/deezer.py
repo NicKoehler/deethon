@@ -24,13 +24,13 @@ class Deezer:
         return self.__req.post(consts.API_URL, params=params,
                                json=json).json()["results"]
 
-    def download(self, url: str, bitrate: str = "FLAC"):
+    def download(self, url: str, bitrate: str = "FLAC", progress_callback=None):
         match = re.match(r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
             mode = match.group(1)
             content_id = match.group(2)
             if mode == "track":
-                return self.download_track(Track(content_id), bitrate)
+                return self.download_track(Track(content_id), bitrate, progress_callback)
             if mode == "album":
                 return self.download_album(Album(content_id), bitrate)
             else:
@@ -38,11 +38,9 @@ class Deezer:
         else:
             raise exceptions.InvalidUrlError(url)
 
-    def download_track(self, track: Track, bitrate: str) -> Path:
+    def download_track(self, track: Track, bitrate: str = "FLAC", progress_callback=None) -> Path:
         json = {"sng_id": track.id}
-        track_info = self.__get_api(consts.METHOD_GET_TRACK, self.__csrf_token,
-                                    json)
-
+        track_info = self.__get_api(consts.METHOD_GET_TRACK, self.__csrf_token, json)
         md5 = track_info["MD5_ORIGIN"]
 
         if "composer" in track_info["SNG_CONTRIBUTORS"]:
@@ -56,9 +54,17 @@ class Deezer:
 
         ext = ".flac" if bitrate == "9" else ".mp3"
         file_path = utils.get_file_path(track, ext)
-
         crypt = self.__req.get(download_url)
-        utils.decrypt_file(crypt.iter_content(2048), track.id, file_path)
+        total = crypt.headers['Content-Length']
+        current = 0
+
+        with file_path.open('wb') as f:
+            for data in utils.decrypt_file(crypt.iter_content(2048), track.id):
+                current += len(data)
+                if progress_callback:
+                    progress_callback(current, total)
+                f.write(data)
+
         tag.tag(file_path, track)
 
         return file_path

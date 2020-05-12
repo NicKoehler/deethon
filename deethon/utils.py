@@ -39,16 +39,15 @@ def get_stream_url(md5: str, quality: str, track_id: int, media) -> str:
     return f"https://e-cdns-proxy-{md5[0]}.dzcdn.net/mobile/1/{hashs}"
 
 
-def decrypt_file(crypt, trackid: int, output: Path) -> None:
-    h = md5hex(str(trackid).encode())
+def decrypt_file(input_data, track_id):
+    h = md5hex(str(track_id).encode())
     key = "".join(chr(h[i] ^ h[i + 16] ^ b"g4el58wc0zvf9na1"[i]) for i in range(16))
     seg = 0
-    with output.open("wb") as f:
-        for data in crypt:
-            if not data:
-                break
-            if (seg % 3) == 0 and len(data) == 2048:
-                data = Blowfish.new(key.encode(), Blowfish.MODE_CBC,
-                                    a2b_hex("0001020304050607")).decrypt(data)
-            f.write(data)
-            seg += 1
+    for data in input_data:
+        if not data:
+            break
+        if (seg % 3) == 0 and len(data) == 2048:
+            data = Blowfish.new(key.encode(), Blowfish.MODE_CBC,
+                                a2b_hex("0001020304050607")).decrypt(data)
+        seg += 1
+        yield data
