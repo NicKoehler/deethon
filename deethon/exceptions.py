@@ -1,6 +1,5 @@
 class DeezerApiError(Exception):
     """ Raised when a Deezer api request returns an error"""
-
     def __init__(self, error: str, message: str, code: int):
         self.error = error
         self.message = message
@@ -12,7 +11,6 @@ class DeezerApiError(Exception):
 
 class InvalidUrlError(Exception):
     """ Raised when an invalid url is passed"""
-
     def __init__(self, url: str):
         self.url = url
 
@@ -22,7 +20,6 @@ class InvalidUrlError(Exception):
 
 class ActionNotSupported(Exception):
     """ Raised when an invalid action is called"""
-
     def __init__(self, mode: str):
         self.mode = mode
 

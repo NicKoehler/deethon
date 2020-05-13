@@ -30,7 +30,10 @@ def get_file_path(track, ext) -> Path:
 
 
 def get_stream_url(md5: str, quality: str, track_id: int, media) -> str:
-    data = b"\xa4".join(a.encode() for a in [md5, quality, str(track_id), str(media)])
+    data = b"\xa4".join(
+        a.encode()
+        for a in [md5, quality, str(track_id),
+                  str(media)])
     data = b"\xa4".join([md5hex(data), data]) + b"\xa4"
     if len(data) % 16:
         data += b"\x00" * (16 - len(data) % 16)
@@ -41,7 +44,8 @@ def get_stream_url(md5: str, quality: str, track_id: int, media) -> str:
 
 def decrypt_file(input_data, track_id):
     h = md5hex(str(track_id).encode())
-    key = "".join(chr(h[i] ^ h[i + 16] ^ b"g4el58wc0zvf9na1"[i]) for i in range(16))
+    key = "".join(
+        chr(h[i] ^ h[i + 16] ^ b"g4el58wc0zvf9na1"[i]) for i in range(16))
     seg = 0
     for data in input_data:
         if not data:

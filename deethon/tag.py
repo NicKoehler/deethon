@@ -15,14 +15,15 @@ def tag(file_path: Path, track: Track):
         tags.add(Frames['TALB'](encoding=3, text=track.album.title))
         tags.add(Frames['TBPM'](encoding=3, text=str(track.bpm)))
         tags.add(Frames['TCON'](encoding=3, text=track.album.genres))
-        tags.add(Frames['TDAT'](encoding=3, text=track.release_date_four_digits))
-        # tags.add(Frames['TDRC'](encoding=3, text=track.release_date)) id3v2.4
+        tags.add(Frames['TDAT'](encoding=3,
+                                text=track.release_date_four_digits))
         tags.add(Frames['TIT2'](encoding=3, text=track.title))
         tags.add(Frames['TPE1'](encoding=3, text=track.artist))
         tags.add(Frames['TPE2'](encoding=3, text=track.album.artist))
         tags.add(Frames['TPOS'](encoding=3, text=str(track.disk_number)))
         tags.add(Frames['TPUB'](encoding=3, text=track.album.label))
-        tags.add(Frames['TRCK'](encoding=3, text=f"{track.number}/{track.album.total_tracks}"))
+        tags.add(Frames['TRCK'](
+            encoding=3, text=f"{track.number}/{track.album.total_tracks}"))
         tags.add(Frames['TSRC'](encoding=3, text=track.isrc))
         tags.add(Frames['TYER'](encoding=3, text=track.release_year))
 
