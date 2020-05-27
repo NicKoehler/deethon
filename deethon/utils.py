@@ -4,7 +4,7 @@ from pathlib import Path
 
 from Crypto.Cipher import AES, Blowfish
 
-from deethon import Track
+from .types import Track
 
 
 def md5hex(data: bytes) -> bytes:

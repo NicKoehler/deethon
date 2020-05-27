@@ -1,9 +1,13 @@
+from __future__ import annotations
+
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from mutagen.flac import FLAC, Picture
 from mutagen.id3 import ID3, Frames
 
-from .types import Track
+if TYPE_CHECKING:
+    from .types import Track
 
 
 def tag(file_path: Path, track: Track):

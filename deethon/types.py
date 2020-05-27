@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 from functools import cached_property, lru_cache
-from typing import Union
+from typing import Union, TYPE_CHECKING
 
 import requests
 
-from . import Deezer, consts, exceptions
+from . import consts, errors
+
+if TYPE_CHECKING:
+    from .session import Session
 
 
 @lru_cache
@@ -48,9 +53,9 @@ class Track:
     def __init__(self, track_id: Union[int, str]):
         r = requests.get(f"https://api.deezer.com/track/{track_id}").json()
         if "error" in r:
-            raise exceptions.DeezerApiError(r['error']['type'],
-                                            r['error']['message'],
-                                            r['error']['code'])
+            raise errors.DeezerApiError(r['error']['type'],
+                                        r['error']['message'],
+                                        r['error']['code'])
         self.artist = r['artist']['name']
         self.bpm = r['bpm']
         self.disk_number = r['disk_number']
@@ -79,9 +84,9 @@ class Track:
     def album(self) -> Album:
         return Album(self.album_id)
 
-    def add_more_tags(self, deezer: Deezer):
-        track_info = deezer.get_api(consts.METHOD_GET_TRACK,
-                                    deezer.csrf_token, {"sng_id": self.id})
+    def add_more_tags(self, session: Session):
+        track_info = session.get_api(consts.METHOD_GET_TRACK, session.csrf_token,
+                                     {"sng_id": self.id})
         self.md5_origin = track_info["MD5_ORIGIN"]
         self.media_version = track_info["MEDIA_VERSION"]
 
@@ -89,7 +94,3 @@ class Track:
             self.composer = track_info["SNG_CONTRIBUTORS"]["composer"]
         if "author" in track_info["SNG_CONTRIBUTORS"]:
             self.author = track_info["SNG_CONTRIBUTORS"]["author"]
-
-    def add_tags(self, **tags) -> None:
-        for tag in tags:
-            setattr(self, tag, tags[tag])

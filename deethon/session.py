@@ -3,11 +3,10 @@ from pathlib import Path
 
 import requests
 
-from . import exceptions, consts, utils, tag
-from .types import Track, Album
+from . import errors, consts, utils, tag, types
 
 
-class Deezer:
+class Session:
     def __init__(self, arl_token: str):
         self._arl_token = arl_token
         self._req = requests.Session()
@@ -34,17 +33,17 @@ class Deezer:
             mode = match.group(1)
             content_id = match.group(2)
             if mode == "track":
-                return self.download_track(Track(content_id), bitrate,
+                return self.download_track(types.Track(content_id), bitrate,
                                            progress_callback)
             if mode == "album":
-                return self.download_album(Album(content_id), bitrate)
+                return self.download_album(types.Album(content_id), bitrate)
             else:
-                raise exceptions.ActionNotSupported(mode)
+                raise errors.ActionNotSupported(mode)
         else:
-            raise exceptions.InvalidUrlError(url)
+            raise errors.InvalidUrlError(url)
 
     def download_track(self,
-                       track: Track,
+                       track: types.Track,
                        bitrate: str = "FLAC",
                        progress_callback=None) -> Path:
 
@@ -69,7 +68,7 @@ class Deezer:
 
         return file_path
 
-    def download_album(self, album: Album, bitrate: str):
+    def download_album(self, album: types.Album, bitrate: str):
         return tuple(
             self.download_track(track, bitrate) for track in album.tracks)
 
