@@ -54,7 +54,7 @@ class Session:
         ext = ".flac" if bitrate == "9" else ".mp3"
         file_path = utils.get_file_path(track, ext)
         crypt = self._req.get(download_url)
-        total = crypt.headers["Content-Length"]
+        total = int(crypt.headers["Content-Length"])
         current = 0
 
         with file_path.open("wb") as f:
