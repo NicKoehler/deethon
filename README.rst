@@ -16,7 +16,7 @@ Initialize
 
     import deethon
 
-    deezer = deethon.Deezer("DEEZER ARL TOKEN")
+    deezer = deethon.Session("DEEZER ARL TOKEN")
 
 Download tracks
 ^^^^^^^^^^^^^^^
