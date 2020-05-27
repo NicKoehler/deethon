@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deethon"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python3 library to easily download music from Deezer"
 authors = [
     "Aykut Yilmaz <aykuxt@gmail.com>"
