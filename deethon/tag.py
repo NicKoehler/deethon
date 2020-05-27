@@ -22,8 +22,8 @@ def tag(file_path: Path, track: Track):
         tags.add(Frames['TPE2'](encoding=3, text=track.album.artist))
         tags.add(Frames['TPOS'](encoding=3, text=str(track.disk_number)))
         tags.add(Frames['TPUB'](encoding=3, text=track.album.label))
-        tags.add(Frames['TRCK'](
-            encoding=3, text=f"{track.number}/{track.album.total_tracks}"))
+        tags.add(Frames['TRCK'](encoding=3,
+                                text=f"{track.number}/{track.album.total_tracks}"))
         tags.add(Frames['TSRC'](encoding=3, text=track.isrc))
         tags.add(Frames['TYER'](encoding=3, text=track.release_year))
 

@@ -4,6 +4,8 @@ from pathlib import Path
 
 from Crypto.Cipher import AES, Blowfish
 
+from deethon import Track
+
 
 def md5hex(data: bytes) -> bytes:
     hashed = hashlib.md5(data).hexdigest().encode()
@@ -29,17 +31,17 @@ def get_file_path(track, ext) -> Path:
     return dir_path / file_name
 
 
-def get_stream_url(md5: str, quality: str, track_id: int, media) -> str:
+def get_stream_url(track: Track, quality: str) -> str:
     data = b"\xa4".join(
         a.encode()
-        for a in [md5, quality, str(track_id),
-                  str(media)])
+        for a in [track.md5_origin, quality, str(track.id),
+                  str(track.media_version)])
     data = b"\xa4".join([md5hex(data), data]) + b"\xa4"
     if len(data) % 16:
         data += b"\x00" * (16 - len(data) % 16)
     c = AES.new("jo6aey6haid2Teih".encode(), AES.MODE_ECB)
     hashs = b2a_hex(c.encrypt(data)).decode()
-    return f"https://e-cdns-proxy-{md5[0]}.dzcdn.net/mobile/1/{hashs}"
+    return f"https://e-cdns-proxy-{track.md5_origin[0]}.dzcdn.net/mobile/1/{hashs}"
 
 
 def decrypt_file(input_data, track_id):

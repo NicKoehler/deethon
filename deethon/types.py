@@ -3,7 +3,7 @@ from typing import Union
 
 import requests
 
-from . import exceptions
+from . import Deezer, consts, exceptions
 
 
 @lru_cache
@@ -70,9 +70,25 @@ class Track:
 
         self.album_id = r['album']["id"]
 
+        self.md5_origin = None
+        self.media_version = None
+        self.composer = None
+        self.author = None
+
     @cached_property
     def album(self) -> Album:
         return Album(self.album_id)
+
+    def add_more_tags(self, deezer: Deezer):
+        track_info = deezer.get_api(consts.METHOD_GET_TRACK,
+                                    deezer.csrf_token, {"sng_id": self.id})
+        self.md5_origin = track_info["MD5_ORIGIN"]
+        self.media_version = track_info["MEDIA_VERSION"]
+
+        if "composer" in track_info["SNG_CONTRIBUTORS"]:
+            self.composer = track_info["SNG_CONTRIBUTORS"]["composer"]
+        if "author" in track_info["SNG_CONTRIBUTORS"]:
+            self.author = track_info["SNG_CONTRIBUTORS"]["author"]
 
     def add_tags(self, **tags) -> None:
         for tag in tags:
