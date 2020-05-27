@@ -1,6 +1,7 @@
 import hashlib
 from binascii import a2b_hex, b2a_hex
 from pathlib import Path
+from typing import Iterator
 
 from Crypto.Cipher import AES, Blowfish
 
@@ -8,8 +9,7 @@ from .types import Track
 
 
 def md5hex(data: bytes) -> bytes:
-    hashed = hashlib.md5(data).hexdigest().encode()
-    return hashed
+    return hashlib.md5(data).hexdigest().encode()
 
 
 def get_quality(bitrate: str) -> str:
@@ -23,7 +23,7 @@ def get_quality(bitrate: str) -> str:
         return "1"
 
 
-def get_file_path(track, ext) -> Path:
+def get_file_path(track: Track, ext) -> Path:
     std_dir = "Songs/"
     dir_path = Path(f"{std_dir}{track.album.artist}/{track.album.title}")
     dir_path.mkdir(parents=True, exist_ok=True)
@@ -44,7 +44,7 @@ def get_stream_url(track: Track, quality: str) -> str:
     return f"https://e-cdns-proxy-{track.md5_origin[0]}.dzcdn.net/mobile/1/{hashs}"
 
 
-def decrypt_file(input_data, track_id):
+def decrypt_file(input_data: Iterator, track_id: int):
     h = md5hex(str(track_id).encode())
     key = "".join(
         chr(h[i] ^ h[i + 16] ^ b"g4el58wc0zvf9na1"[i]) for i in range(16))
