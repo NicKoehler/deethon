@@ -14,7 +14,7 @@ def tag(file_path: Path, track: Track):
     ext = file_path.suffix
 
     if ext == ".mp3":
-        tags = ID3(file_path)
+        tags = ID3()
 
         tags.add(Frames['TALB'](encoding=3, text=track.album.title))
         tags.add(Frames['TBPM'](encoding=3, text=str(track.bpm)))
@@ -44,7 +44,7 @@ def tag(file_path: Path, track: Track):
             desc="Cover",
             data=track.album.cover_xl,
         ))
-        tags.save(v2_version=3)
+        tags.save(file_path, v2_version=3)
 
     else:
         tags = FLAC(file_path)
