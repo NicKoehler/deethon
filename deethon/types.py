@@ -16,6 +16,10 @@ class Album:
     def __init__(self, album_id: Union[int, str]):
         self.r = requests.get(
             f"https://api.deezer.com/album/{album_id}").json()
+        if "error" in self.r:
+            raise errors.DeezerApiError(self.r['error']['type'],
+                                        self.r['error']['message'],
+                                        self.r['error']['code'])
         self.id = self.r["id"]
         self.title = self.r["title"]
         self.artist = self.r["artist"]["name"]
