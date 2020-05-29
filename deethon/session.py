@@ -68,9 +68,11 @@ class Session:
 
         return file_path
 
-    def download_album(self, album: types.Album, bitrate: str):
-        return tuple(
-            self.download_track(track, bitrate) for track in album.tracks)
+    def download_album(self, album: types.Album, bitrate: str, stream=False):
+        tracks = (self.download_track(track, bitrate) for track in album.tracks)
+        if stream:
+            return tracks
+        return tuple(tracks)
 
     @property
     def csrf_token(self):
