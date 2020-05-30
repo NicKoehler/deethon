@@ -1,5 +1,9 @@
 Deethon
 =======
+
+.. image:: https://api.codacy.com/project/badge/Grade/3d4563e90a8849398953c12b2f6a8479
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/gh/deethon/deethon?utm_source=github.com&utm_medium=referral&utm_content=deethon/deethon&utm_campaign=Badge_Grade_Dashboard
 Python3 library to easily download music from `Deezer`_.
 
 Quickstart
