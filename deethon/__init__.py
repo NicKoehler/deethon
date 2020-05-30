@@ -6,4 +6,4 @@ from .session import Session
 from .types import Album, Track
 from . import errors
 
-__all__ = [Session, Album, Track, errors]
+__all__ = ['Session', 'Album', 'Track', 'errors']
