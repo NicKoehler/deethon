@@ -1,14 +1,24 @@
+"""This module contains the Session class."""
 import re
 from pathlib import Path
 
 import requests
 
-from . import errors, consts, utils, tag, types
+from . import errors, consts, utils, types
 
 
 class Session:
+    """
+    A session is required to connect to Deezer's unofficial API.
+    """
     def __init__(self, arl_token: str):
-        self._arl_token = arl_token
+        """
+        Creates a new Deezer session instance.
+
+        Args:
+            arl_token (str): The arl token is used to make API requests on Deezers unofficial API
+        """
+        self._arl_token: str = arl_token
         self._req = requests.Session()
         self._req.cookies["arl"] = self._arl_token
         self._csrf_token = self.get_api(consts.METHOD_GET_USER)["checkForm"]
@@ -27,6 +37,18 @@ class Session:
                  url: str,
                  bitrate: str = "FLAC",
                  progress_callback=None):
+        """
+        Downloads the given Deezer url if possible.
+
+        Args:
+            url (str): The URL of the track or album to download.
+            bitrate (str, optional): The preferred bitrate to download (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
+            progress_callback (callable): A callable that accepts `current` and `bytes` arguments.
+
+        Returns:
+            Path: The file path of the downloaded track
+
+        """
         match = re.match(
             r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
@@ -42,11 +64,22 @@ class Session:
         else:
             raise errors.InvalidUrlError(url)
 
-    def download_track(self,
-                       track: types.Track,
+    def download_track(self, track: types.Track,
                        bitrate: str = "FLAC",
                        progress_callback=None) -> Path:
+        """
+        Downloads the given [Track][deethon.types.Track] object.
 
+        Args:
+            track: A [Track][deethon.types.Track] instance.
+            bitrate (optional): The preferred bitrate to download
+                (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
+            progress_callback (callable): A callable that accepts
+                `current` and `bytes` arguments.
+
+        Returns:
+            Path: The file path of the downloaded track.
+        """
         track.add_more_tags(self)
         bitrate = utils.get_quality(bitrate)
         download_url = utils.get_stream_url(track, bitrate)
@@ -64,7 +97,7 @@ class Session:
                 if progress_callback:
                     progress_callback(current, total)
 
-        tag.tag(file_path, track)
+        utils.tag(file_path, track)
 
         return file_path
 

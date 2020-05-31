@@ -6,7 +6,7 @@ authors = [
     "Aykut Yilmaz <aykuxt@gmail.com>"
 ]
 license = "GPL-3.0-or-later"
-readme = "README.rst"
+readme = "README.md"
 repository = "https://github.com/deethon/deethon"
 classifiers = [
     "Development Status :: 3 - Alpha",

@@ -1,0 +1,50 @@
+site_name: Deethon Docs
+site_url: https://deethon.github.io/deethon/
+repo_name: deethon/deethon
+repo_url: https://github.com/deethon/deethon
+
+copyright: Copyright © 2020 Deethon
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/deethon
+
+nav:
+  - Welcome to Deethon: index.md
+  - Reference:
+    - consts.py: reference/consts.md
+    - errors.py: reference/errors.md
+    - session.py: reference/session.md
+    - types.py: reference/types.md
+    - utils.py: reference/utils.md
+  - Code of Conduct: code_of_conduct.md
+  - License: license.md
+
+theme:
+  name: material
+  icon:
+    logo: material/rocket
+  palette:
+    primary: red
+    accent: black
+
+extra_css:
+  - assets/css/custom.css
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: "¤"
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+      watch:
+        - deethon
