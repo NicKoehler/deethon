@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from .session import Session
 
 
-class Album(object):
+class Album:
     """
     The Album class contains several information about an album.
     """
