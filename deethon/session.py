@@ -59,8 +59,7 @@ class Session:
                                            progress_callback)
             if mode == "album":
                 return self.download_album(types.Album(content_id), bitrate)
-            else:
-                raise errors.ActionNotSupported(mode)
+            raise errors.ActionNotSupported(mode)
         else:
             raise errors.InvalidUrlError(url)
 
