@@ -22,7 +22,10 @@ class Session:
         self._arl_token: str = arl_token
         self._req = requests.Session()
         self._req.cookies["arl"] = self._arl_token
-        self._csrf_token = self.get_api(consts.METHOD_GET_USER)["checkForm"]
+        user = self.get_api(consts.METHOD_GET_USER)
+        if user["USER"]["USER_ID"] == 0:
+            raise errors.DeezerLoginError
+        self._csrf_token = user["checkForm"]
 
     def get_api(self, method: str, api_token="null", json=None) -> dict:
         params = {

@@ -3,6 +3,13 @@ The errors module contains all custom error classes
 """
 
 
+class DeezerLoginError(Exception):
+    """Raised when login to Deezer fails."""
+
+    def __str__(self) -> str:
+        return "Failed to login to Deezer. Please check your arl token."
+
+
 class DeezerApiError(Exception):
     """Raised when a Deezer api request returns an error"""
 
