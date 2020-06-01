@@ -220,7 +220,7 @@ class Track:
         """
         The md5 origin of the track.
 
-        Warning:
+        Info:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
             called. Defaults to `None`.
@@ -229,7 +229,7 @@ class Track:
         """
         The media version of the track.
 
-        Warning:
+        Info:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
             called. Defaults to `None`.
@@ -238,7 +238,7 @@ class Track:
         """
         The author of the track.
 
-        Warning:
+        Info:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
             called. Defaults to `None`.
@@ -247,7 +247,7 @@ class Track:
         """
         The author of the track.
 
-        Warning:
+        Info:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
             called. Defaults to `None`.
@@ -263,7 +263,7 @@ class Track:
         Adds more tags using Deezer's unofficial API.
 
         Args:
-            session: A deethon.Session object is required to connect
+            session: A [Session][deethon.session.Session] object is required to connect
                 to the Deezer API.
         """
         track_info = session.get_api(consts.METHOD_GET_TRACK, session.csrf_token,

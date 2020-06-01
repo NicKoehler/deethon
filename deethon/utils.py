@@ -31,7 +31,17 @@ def get_quality(bitrate: str) -> str:
     return "1"
 
 
-def get_file_path(track: Track, ext) -> Path:
+def get_file_path(track: Track, ext: str) -> Path:
+    """
+    Generate a file path using a Track object.
+
+    Args:
+        track: A Track object.
+        ext: The file extension to be used.
+
+    Returns:
+        A Path object containing the track path.
+    """
     std_dir = "Songs/"
     dir_path = Path(f"{std_dir}{track.album.artist}/{track.album.title}")
     dir_path.mkdir(parents=True, exist_ok=True)
