@@ -947,7 +947,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tbody>
 <tr>
 <td><code>album_id</code></td>
-<td><code>Union[int, str]</code></td>
+<td><code>int</code></td>
 <td>
 <p>The Deezer album ID.</p>
 </td>
@@ -978,7 +978,11 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 38
+<pre><span></span> 34
+ 35
+ 36
+ 37
+ 38
  39
  40
  41
@@ -1043,16 +1047,12 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 100
 101
 102
-103
-104
-105
-106
-107</pre>
+103</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">album_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">album_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Create a new album instance with the specified album ID.</span>
 
@@ -1156,7 +1156,7 @@ instance is created.</p>
 <tbody>
 <tr>
 <td><code>album_id</code></td>
-<td><code>Union[int, str]</code></td>
+<td><code>int</code></td>
 <td>
 <p>The Deezer album ID.</p>
 </td>
@@ -1170,7 +1170,11 @@ instance is created.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>23
+<pre><span></span>19
+20
+21
+22
+23
 24
 25
 26
@@ -1179,16 +1183,12 @@ instance is created.</p>
 29
 30
 31
-32
-33
-34
-35
-36</pre>
+32</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">album_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">album_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    If an album instance with the specified album ID already exists,</span>
 <span class="sd">    this method returns the cached instance, otherwise a new album</span>
@@ -1433,7 +1433,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tbody>
 <tr>
 <td><code>track_id</code></td>
-<td><code>Union[int, str]</code></td>
+<td><code>int</code></td>
 <td>
 <p>The Deezer track ID.</p>
 </td>
@@ -1464,7 +1464,15 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>172
+<pre><span></span>164
+165
+166
+167
+168
+169
+170
+171
+172
 173
 174
 175
@@ -1546,20 +1554,12 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 251
 252
 253
-254
-255
-256
-257
-258
-259
-260
-261
-262</pre>
+254</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Create a new track instance with the specified track ID.</span>
 
@@ -1684,7 +1684,7 @@ instance is created and cached.</p>
 <tbody>
 <tr>
 <td><code>track_id</code></td>
-<td><code>Union[int, str]</code></td>
+<td><code>int</code></td>
 <td>
 <p>The Deezer album ID.</p>
 </td>
@@ -1698,27 +1698,25 @@ instance is created and cached.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>155
+<pre><span></span>149
+150
+151
+152
+153
+154
+155
 156
 157
 158
 159
 160
 161
-162
-163
-164
-165
-166
-167
-168
-169
-170</pre>
+162</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">track_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">track_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    If a track instance with the specified track ID already exists,</span>
 <span class="sd">    this method returns the cached instance, otherwise a new track</span>
@@ -1727,8 +1725,6 @@ instance is created and cached.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        track_id (Union[int, str]): The Deezer album ID.</span>
 <span class="sd">    """</span>
-    <span class="n">track_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span>
     <span class="n">track</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
@@ -1777,7 +1773,15 @@ to the Deezer API.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>269
+<pre><span></span>261
+262
+263
+264
+265
+266
+267
+268
+269
 270
 271
 272
@@ -1785,15 +1789,7 @@ to the Deezer API.</p>
 274
 275
 276
-277
-278
-279
-280
-281
-282
-283
-284
-285</pre>
+277</pre>
 </div>
 </td>
 <td class="code">

@@ -183,6 +183,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#deethon.utils.get_file_path">
+    get_file_path()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#deethon.utils.get_stream_url">
     get_stream_url()
   </a>
@@ -232,6 +237,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#deethon.utils.decrypt_file">
     decrypt_file()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deethon.utils.get_file_path">
+    get_file_path()
   </a>
 </li>
 <li class="md-nav__item">
@@ -320,16 +330,7 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>66
-67
-68
-69
-70
-71
-72
-73
-74
-75
+<pre><span></span>75
 76
 77
 78
@@ -342,7 +343,16 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 85
 86
 87
-88</pre>
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</pre>
 </div>
 </td>
 <td class="code">
@@ -358,7 +368,7 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 <span class="sd">    Returns:</span>
 <span class="sd">        A Generator object containing the decrypted data</span>
 <span class="sd">    """</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">md5hex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_md5hex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
     <span class="n">key</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="nb">chr</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">16</span><span class="p">]</span> <span class="o">^</span> <span class="sa">b</span><span class="s2">"g4el58wc0zvf9na1"</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
     <span class="n">seg</span> <span class="o">=</span> <span class="mi">0</span>
@@ -370,6 +380,109 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
                                 <span class="n">a2b_hex</span><span class="p">(</span><span class="s2">"0001020304050607"</span><span class="p">))</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">seg</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">yield</span> <span class="n">data</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h2 class="doc doc-heading" id="deethon.utils.get_file_path">
+<code class="highlight language-python">
+get_file_path<span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span> </code>
+<a class="headerlink" href="#deethon.utils.get_file_path" title="Permanent link">¤</a></h2>
+<div class="doc doc-contents">
+<p>Generate a file path using a Track object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>track</code></td>
+<td><code>Track</code></td>
+<td>
+<p>A Track object.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>ext</code></td>
+<td><code></code></td>
+<td>
+<p>The file extension to be used.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Path</code></td>
+<td>
+<p>A Path object containing the track path.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>deethon\utils.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_file_path</span><span class="p">(</span><span class="n">track</span><span class="p">:</span> <span class="n">Track</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Generate a file path using a Track object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        track: A Track object.</span>
+<span class="sd">        ext: The file extension to be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A Path object containing the track path.</span>
+<span class="sd">    """</span>
+    <span class="n">std_dir</span> <span class="o">=</span> <span class="s2">"Songs/"</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">std_dir</span><span class="si">}{</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">artist</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">title</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">return</span> <span class="n">dir_path</span> <span class="o">/</span> <span class="n">file_name</span>
 </code></pre>
 </div>
 </td>
@@ -437,16 +550,7 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>43
-44
-45
-46
-47
-48
-49
-50
-51
-52
+<pre><span></span>52
 53
 54
 55
@@ -457,7 +561,16 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
 60
 61
 62
-63</pre>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
 </div>
 </td>
 <td class="code">
@@ -477,7 +590,7 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
         <span class="n">a</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="n">track</span><span class="o">.</span><span class="n">md5_origin</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
                   <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">media_version</span><span class="p">)])</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">md5hex</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="p">])</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">_md5hex</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="p">])</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\x00</span><span class="s2">"</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">"jo6aey6haid2Teih"</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
@@ -534,16 +647,7 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
+<pre><span></span>100
 101
 102
 103
@@ -597,7 +701,16 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 151
 152
 153
-154</pre>
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</pre>
 </div>
 </td>
 <td class="code">
