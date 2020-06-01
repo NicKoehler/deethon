@@ -16,7 +16,7 @@ class Album:
     """The Album class contains several information about an album."""
     _cache = {}
 
-    def __new__(cls, album_id: Union[int, str]):
+    def __new__(cls, album_id: int):
         """
         If an album instance with the specified album ID already exists,
         this method returns the cached instance, otherwise a new album
@@ -31,7 +31,7 @@ class Album:
         cls._cache[album_id] = _album
         return _album
 
-    def __init__(self, album_id: Union[int, str]):
+    def __init__(self, album_id: int):
         """
         Create a new album instance with the specified album ID.
 
@@ -143,12 +143,10 @@ class Album:
 
 
 class Track:
-    """
-    The Track class contains several information about a track.
-    """
+    """The Track class contains several information about a track."""
     _cache = {}
 
-    def __new__(cls, track_id: Union[int, str]):
+    def __new__(cls, track_id: int):
         """
         If a track instance with the specified track ID already exists,
         this method returns the cached instance, otherwise a new track
@@ -157,15 +155,13 @@ class Track:
         Args:
             track_id (Union[int, str]): The Deezer album ID.
         """
-        track_id = int(track_id)
-
         if track_id in cls._cache.keys():
             return cls._cache[track_id]
         track = super(Track, cls).__new__(cls)
         cls._cache[track_id] = track
         return track
 
-    def __init__(self, track_id: Union[int, str]):
+    def __init__(self, track_id: int):
         """
         Create a new track instance with the specified track ID.
 
