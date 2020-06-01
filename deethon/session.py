@@ -60,6 +60,7 @@ class Session:
         Raises:
             ActionNotSupported: The specified URL is not (yet)
                 supported for download.
+            InvalidUrlError: The specified URL is not a valid deezer link.
         """
         match = re.match(
             r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
@@ -72,8 +73,7 @@ class Session:
             if mode == "album":
                 return self.download_album(types.Album(content_id), bitrate)
             raise errors.ActionNotSupported(mode)
-        else:
-            raise errors.InvalidUrlError(url)
+        raise errors.InvalidUrlError(url)
 
     def download_track(self, track: types.Track,
                        bitrate: str = "FLAC",
