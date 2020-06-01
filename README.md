@@ -23,7 +23,7 @@ import deethon
 deezer = deethon.Session("YOUR ARL TOKEN")
 
 deezer.download(
-    "https://www.deezer.com/track/1234567"
+    "https://www.deezer.com/track/1234567",
     bitrate="FLAC" # or MP3_320 / MP3_256 / MP3_128 (optional)
 )
 ```
