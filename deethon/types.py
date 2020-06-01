@@ -1,6 +1,4 @@
-"""
-This module contains all available type classes.
-"""
+"""This module contains all available type classes."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -15,9 +13,7 @@ if TYPE_CHECKING:
 
 
 class Album:
-    """
-    The Album class contains several information about an album.
-    """
+    """The Album class contains several information about an album."""
     _cache = {}
 
     def __new__(cls, album_id: Union[int, str]):
@@ -227,7 +223,7 @@ class Track:
         self.md5_origin: Optional[str] = None
         """
         The md5 origin of the track.
-        
+
         Warning:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
@@ -236,7 +232,7 @@ class Track:
         self.media_version: Optional[str] = None
         """
         The media version of the track.
-        
+
         Warning:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
@@ -245,7 +241,7 @@ class Track:
         self.composer: Optional[str] = None
         """
         The author of the track.
-        
+
         Warning:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is
@@ -254,7 +250,7 @@ class Track:
         self.author: Optional[str] = None
         """
         The author of the track.
-        
+
         Warning:
             This attribute is only set after
             [add_more_tags()][deethon.types.Track.add_more_tags] is

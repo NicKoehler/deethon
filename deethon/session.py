@@ -16,7 +16,8 @@ class Session:
         Creates a new Deezer session instance.
 
         Args:
-            arl_token (str): The arl token is used to make API requests on Deezers unofficial API
+            arl_token (str): The arl token is used to make API requests
+                on Deezers unofficial API
         """
         self._arl_token: str = arl_token
         self._req = requests.Session()
@@ -42,8 +43,10 @@ class Session:
 
         Args:
             url (str): The URL of the track or album to download.
-            bitrate (str, optional): The preferred bitrate to download (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
-            progress_callback (callable): A callable that accepts `current` and `bytes` arguments.
+            bitrate (str, optional): The preferred bitrate to download
+                (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
+            progress_callback (callable): A callable that accepts
+                `current` and `bytes` arguments.
 
         Returns:
             Path: The file path of the downloaded track

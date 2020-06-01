@@ -24,12 +24,11 @@ def md5hex(data: bytes) -> bytes:
 def get_quality(bitrate: str) -> str:
     if bitrate == "FLAC":
         return "9"
-    elif bitrate == "MP3_320":
+    if bitrate == "MP3_320":
         return "3"
-    elif bitrate == "MP3_256":
+    if bitrate == "MP3_256":
         return "5"
-    elif bitrate == "MP3_128":
-        return "1"
+    return "1"
 
 
 def get_file_path(track: Track, ext) -> Path:
