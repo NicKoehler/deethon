@@ -11,6 +11,7 @@ class Session:
     """
     A session is required to connect to Deezer's unofficial API.
     """
+
     def __init__(self, arl_token: str):
         """
         Creates a new Deezer session instance.
