@@ -1258,8 +1258,8 @@ author: <span class="n">Optional</span><span class="p">[</span><span class="nb">
 <a class="headerlink" href="#deethon.types.Track.author" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The author of the track.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
 <p>This attribute is only set after
 <a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is
 called. Defaults to <code>None</code>.</p>
@@ -1282,8 +1282,8 @@ composer: <span class="n">Optional</span><span class="p">[</span><span class="nb
 <a class="headerlink" href="#deethon.types.Track.composer" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The author of the track.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
 <p>This attribute is only set after
 <a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is
 called. Defaults to <code>None</code>.</p>
@@ -1342,8 +1342,8 @@ md5_origin: <span class="n">Optional</span><span class="p">[</span><span class="
 <a class="headerlink" href="#deethon.types.Track.md5_origin" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The md5 origin of the track.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
 <p>This attribute is only set after
 <a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is
 called. Defaults to <code>None</code>.</p>
@@ -1357,8 +1357,8 @@ media_version: <span class="n">Optional</span><span class="p">[</span><span clas
 <a class="headerlink" href="#deethon.types.Track.media_version" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The media version of the track.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
 <p>This attribute is only set after
 <a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is
 called. Defaults to <code>None</code>.</p>
@@ -1618,7 +1618,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="sd">"""</span>
 <span class="sd">    The md5 origin of the track.</span>
 
-<span class="sd">    Warning:</span>
+<span class="sd">    Info:</span>
 <span class="sd">        This attribute is only set after</span>
 <span class="sd">        [add_more_tags()][deethon.types.Track.add_more_tags] is</span>
 <span class="sd">        called. Defaults to `None`.</span>
@@ -1627,7 +1627,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="sd">"""</span>
 <span class="sd">    The media version of the track.</span>
 
-<span class="sd">    Warning:</span>
+<span class="sd">    Info:</span>
 <span class="sd">        This attribute is only set after</span>
 <span class="sd">        [add_more_tags()][deethon.types.Track.add_more_tags] is</span>
 <span class="sd">        called. Defaults to `None`.</span>
@@ -1636,7 +1636,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="sd">"""</span>
 <span class="sd">    The author of the track.</span>
 
-<span class="sd">    Warning:</span>
+<span class="sd">    Info:</span>
 <span class="sd">        This attribute is only set after</span>
 <span class="sd">        [add_more_tags()][deethon.types.Track.add_more_tags] is</span>
 <span class="sd">        called. Defaults to `None`.</span>
@@ -1645,7 +1645,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="sd">"""</span>
 <span class="sd">    The author of the track.</span>
 
-<span class="sd">    Warning:</span>
+<span class="sd">    Info:</span>
 <span class="sd">        This attribute is only set after</span>
 <span class="sd">        [add_more_tags()][deethon.types.Track.add_more_tags] is</span>
 <span class="sd">        called. Defaults to `None`.</span>
@@ -1760,7 +1760,7 @@ add_more_tags<span class="p">(</span><span class="bp">self</span><span class="p"
 <td><code>session</code></td>
 <td><code>Session</code></td>
 <td>
-<p>A deethon.Session object is required to connect
+<p>A <a href="https://deethon.github.io/deethon/reference/session/#deethon.session.Session">Session</a> object is required to connect
 to the Deezer API.</p>
 </td>
 <td><em>required</em></td>
@@ -1799,7 +1799,7 @@ to the Deezer API.</p>
 <span class="sd">    Adds more tags using Deezer's unofficial API.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        session: A deethon.Session object is required to connect</span>
+<span class="sd">        session: A [Session][deethon.session.Session] object is required to connect</span>
 <span class="sd">            to the Deezer API.</span>
 <span class="sd">    """</span>
     <span class="n">track_info</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_api</span><span class="p">(</span><span class="n">consts</span><span class="o">.</span><span class="n">METHOD_GET_TRACK</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">csrf_token</span><span class="p">,</span>

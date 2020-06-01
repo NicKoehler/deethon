@@ -368,7 +368,7 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 <span class="sd">    Returns:</span>
 <span class="sd">        A Generator object containing the decrypted data</span>
 <span class="sd">    """</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">_md5hex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">md5hex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
     <span class="n">key</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="nb">chr</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">16</span><span class="p">]</span> <span class="o">^</span> <span class="sa">b</span><span class="s2">"g4el58wc0zvf9na1"</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
     <span class="n">seg</span> <span class="o">=</span> <span class="mi">0</span>
@@ -416,7 +416,7 @@ get_file_path<span class="p">(</span><span class="n">track</span><span class="p"
 </tr>
 <tr>
 <td><code>ext</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The file extension to be used.</p>
 </td>
@@ -467,7 +467,7 @@ get_file_path<span class="p">(</span><span class="n">track</span><span class="p"
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_file_path</span><span class="p">(</span><span class="n">track</span><span class="p">:</span> <span class="n">Track</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_file_path</span><span class="p">(</span><span class="n">track</span><span class="p">:</span> <span class="n">Track</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Generate a file path using a Track object.</span>
 
@@ -590,7 +590,7 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
         <span class="n">a</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="n">track</span><span class="o">.</span><span class="n">md5_origin</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
                   <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">media_version</span><span class="p">)])</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">_md5hex</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="p">])</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">md5hex</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="p">])</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xa4</span><span class="s2">"</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\x00</span><span class="s2">"</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">%</span> <span class="mi">16</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">"jo6aey6haid2Teih"</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>

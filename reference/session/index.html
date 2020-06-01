@@ -184,6 +184,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#deethon.session.Session.download_album">
+    download_album()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#deethon.session.Session.download_track">
     download_track()
   </a>
@@ -255,6 +260,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#deethon.session.Session.download_album">
+    download_album()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#deethon.session.Session.download_track">
     download_track()
   </a>
@@ -318,13 +328,31 @@ on Deezers unofficial API</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Exceptions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DeezerLoginError</code></td>
+<td>
+<p>The specified arl token is not valid.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>deethon\session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>15
+<pre><span></span>14
+15
 16
 17
 18
@@ -338,7 +366,9 @@ on Deezers unofficial API</p>
 26
 27
 28
-29</pre>
+29
+30
+31</pre>
 </div>
 </td>
 <td class="code">
@@ -350,6 +380,9 @@ on Deezers unofficial API</p>
 <span class="sd">    Args:</span>
 <span class="sd">        arl_token (str): The arl token is used to make API requests</span>
 <span class="sd">            on Deezers unofficial API</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        DeezerLoginError: The specified arl token is not valid.</span>
 <span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_arl_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">arl_token</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
@@ -429,15 +462,31 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </tr>
 </tbody>
 </table>
+<p><strong>Exceptions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ActionNotSupported</code></td>
+<td>
+<p>The specified URL is not (yet)
+supported for download.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>deethon\session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>41
-42
-43
+<pre><span></span>43
 44
 45
 46
@@ -465,7 +514,12 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 68
 69
 70
-71</pre>
+71
+72
+73
+74
+75
+76</pre>
 </div>
 </td>
 <td class="code">
@@ -487,12 +541,15 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <span class="sd">    Returns:</span>
 <span class="sd">        Path: The file path of the downloaded track</span>
 
+<span class="sd">    Raises:</span>
+<span class="sd">        ActionNotSupported: The specified URL is not (yet)</span>
+<span class="sd">            supported for download.</span>
 <span class="sd">    """</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
         <span class="sa">r</span><span class="s2">"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)"</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">content_id</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">content_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"track"</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_track</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span><span class="n">content_id</span><span class="p">),</span> <span class="n">bitrate</span><span class="p">,</span>
                                        <span class="n">progress_callback</span><span class="p">)</span>
@@ -501,6 +558,134 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
         <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">ActionNotSupported</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">InvalidUrlError</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="deethon.session.Session.download_album">
+<code class="highlight language-python">
+download_album<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">album</span><span class="p">,</span> <span class="n">bitrate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+<a class="headerlink" href="#deethon.session.Session.download_album" title="Permanent link">¤</a></h3>
+<div class="doc doc-contents">
+<p>Downloads an album from Deezer using the specified Album object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>album</code></td>
+<td><code>Album</code></td>
+<td>
+<p>An <a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Album">Album</a> instance.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>bitrate</code></td>
+<td><code>str</code></td>
+<td>
+<p>The preferred bitrate to download
+(<code>FLAC</code>, <code>MP3_320</code>, <code>MP3_256</code>, <code>MP3_128</code>).</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>stream</code></td>
+<td><code>bool</code></td>
+<td>
+<p>If <code>true</code>, this method returns a generator object,
+otherwise the downloaded files are returned as a tuple
+that contains the file paths.</p>
+</td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Optional[Generator[pathlib.Path, Any], Tuple[pathlib.Path, ...]]</code></td>
+<td>
+<p>The file paths.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>deethon\session.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">download_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                   <span class="n">album</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Album</span><span class="p">,</span>
+                   <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">stream</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Generator</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                                                  <span class="n">Tuple</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Downloads an album from Deezer using the specified Album object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        album: An [Album][deethon.types.Album] instance.</span>
+<span class="sd">        bitrate: The preferred bitrate to download</span>
+<span class="sd">            (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).</span>
+<span class="sd">        stream: If `true`, this method returns a generator object,</span>
+<span class="sd">            otherwise the downloaded files are returned as a tuple</span>
+<span class="sd">            that contains the file paths.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The file paths.</span>
+<span class="sd">    """</span>
+    <span class="n">tracks</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">download_track</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">bitrate</span><span class="p">)</span> <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">album</span><span class="o">.</span><span class="n">tracks</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tracks</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tracks</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -578,12 +763,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 73
- 74
- 75
- 76
- 77
- 78
+<pre><span></span> 78
  79
  80
  81
@@ -613,7 +793,12 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 105
 106
 107
-108</pre>
+108
+109
+110
+111
+112
+113</pre>
 </div>
 </td>
 <td class="code">
