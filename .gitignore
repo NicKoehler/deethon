@@ -11,3 +11,4 @@ Songs/
 *.lock
 coverage.xml
 .coverage
+README.rst
