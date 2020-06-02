@@ -38,4 +38,10 @@ setup(
         'mutagen==1.*,>=1.44.0', 'pycryptodome==3.*,>=3.9.7',
         'requests==2.*,>=2.23.0'
     ],
+    extras_require={
+        "docs": [
+            "mkdocs==1.*,>=1.1.2", "mkdocs-material==5.*,>=5.2.2",
+            "mkdocstrings==0.*,>=0.11.2"
+        ]
+    },
 )
