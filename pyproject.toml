@@ -19,16 +19,15 @@ mutagen = "^1.44.0"
 requests = "^2.23.0"
 pycryptodome = "^3.9.7"
 importlib_metadata = { version = "^1.6", python = "<3.8" }
-mkdocs = {version = "^1.1.2", optional = true}
-mkdocstrings = {version = "^0.11.2", optional = true}
 mkdocs-material = {version = "^5.2.2", optional = true}
+mkdocstrings = {version = "^0.11.2", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
 pylint = "*"
 
 [tool.poetry.extras]
-docs = ["mkdocs", "mkdocstrings", "mkdocs-material"]
+docs = ["mkdocs-material", "mkdocstrings"]
 
 [tool.dephell.main]
 from = {format = "poetry", path = "pyproject.toml"}
