@@ -75,7 +75,8 @@ class Session:
             raise errors.ActionNotSupported(mode)
         raise errors.InvalidUrlError(url)
 
-    def download_track(self, track: types.Track,
+    def download_track(self,
+                       track: types.Track,
                        bitrate: str = "FLAC",
                        progress_callback=None) -> Path:
         """
@@ -112,11 +113,12 @@ class Session:
 
         return file_path
 
-    def download_album(self,
-                       album: types.Album,
-                       bitrate: str = None,
-                       stream: bool = False) -> Union[Generator[Path, Any, None],
-                                                      Tuple[Path, ...]]:
+    def download_album(
+        self,
+        album: types.Album,
+        bitrate: str = None,
+        stream: bool = False
+    ) -> Union[Generator[Path, Any, None], Tuple[Path, ...]]:
         """
         Downloads an album from Deezer using the specified Album object.
 
@@ -131,7 +133,8 @@ class Session:
         Returns:
             The file paths.
         """
-        tracks = (self.download_track(track, bitrate) for track in album.tracks)
+        tracks = (self.download_track(track, bitrate)
+                  for track in album.tracks)
         if stream:
             return tracks
         return tuple(tracks)

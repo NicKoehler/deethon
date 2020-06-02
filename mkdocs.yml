@@ -12,11 +12,11 @@ extra:
 nav:
   - Welcome to Deethon: index.md
   - Reference:
-    - consts.py: reference/consts.md
-    - errors.py: reference/errors.md
-    - session.py: reference/session.md
-    - types.py: reference/types.md
-    - utils.py: reference/utils.md
+      - consts.py: reference/consts.md
+      - errors.py: reference/errors.md
+      - session.py: reference/session.md
+      - types.py: reference/types.md
+      - utils.py: reference/utils.md
   - Code of Conduct: code_of_conduct.md
   - License: license.md
 
