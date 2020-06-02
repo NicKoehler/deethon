@@ -478,6 +478,12 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 supported for download.</p>
 </td>
 </tr>
+<tr>
+<td><code>InvalidUrlError</code></td>
+<td>
+<p>The specified URL is not a valid deezer link.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <details class="quote">
@@ -544,6 +550,7 @@ supported for download.</p>
 <span class="sd">    Raises:</span>
 <span class="sd">        ActionNotSupported: The specified URL is not (yet)</span>
 <span class="sd">            supported for download.</span>
+<span class="sd">        InvalidUrlError: The specified URL is not a valid deezer link.</span>
 <span class="sd">    """</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
         <span class="sa">r</span><span class="s2">"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)"</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
@@ -556,8 +563,7 @@ supported for download.</p>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"album"</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_album</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">Album</span><span class="p">(</span><span class="n">content_id</span><span class="p">),</span> <span class="n">bitrate</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">ActionNotSupported</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">InvalidUrlError</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">InvalidUrlError</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -752,7 +758,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td><code>Path</code></td>
 <td>
-<p>Path: The file path of the downloaded track.</p>
+<p>The file path of the downloaded track.</p>
 </td>
 </tr>
 </tbody>
@@ -817,7 +823,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <span class="sd">            `current` and `bytes` arguments.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Path: The file path of the downloaded track.</span>
+<span class="sd">        The file path of the downloaded track.</span>
 <span class="sd">    """</span>
     <span class="n">track</span><span class="o">.</span><span class="n">add_more_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="n">bitrate</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_quality</span><span class="p">(</span><span class="n">bitrate</span><span class="p">)</span>
