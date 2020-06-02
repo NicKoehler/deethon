@@ -89,7 +89,7 @@ class Session:
                 `current` and `bytes` arguments.
 
         Returns:
-            Path: The file path of the downloaded track.
+            The file path of the downloaded track.
         """
         track.add_more_tags(self)
         bitrate = utils.get_quality(bitrate)
