@@ -9,3 +9,5 @@ Songs/
 *.egg-info/
 *.cmd
 *.lock
+coverage.xml
+.coverage

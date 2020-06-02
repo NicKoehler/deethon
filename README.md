@@ -1,5 +1,6 @@
 # Deethon
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3a54b30586b941acb82079d0252e0320)](https://www.codacy.com/gh/deethon/deethon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=deethon/deethon&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/3a54b30586b941acb82079d0252e0320)](https://www.codacy.com/gh/deethon/deethon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=deethon/deethon&amp;utm_campaign=Badge_Coverage)
 [![PyPI](https://img.shields.io/pypi/v/deethon)](https://pypi.org/project/deethon/)
 ![PyPI - Status](https://img.shields.io/pypi/status/deethon)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/deethon)](https://pypi.org/project/deethon/)
