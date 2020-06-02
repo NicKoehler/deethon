@@ -35,6 +35,7 @@ setup(
     package_dir={"": "."},
     package_data={},
     install_requires=[
+        'importlib-metadata==1.*,>=1.6.0; python_version < "3.8"',
         'mutagen==1.*,>=1.44.0', 'pycryptodome==3.*,>=3.9.7',
         'requests==2.*,>=2.23.0'
     ],
