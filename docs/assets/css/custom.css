@@ -1,3 +1,7 @@
-.md-typeset p {
+.md-typeset__table p {
   margin: 0;
+}
+
+.hidden-toc {
+  display: none;
 }
