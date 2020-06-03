@@ -664,15 +664,19 @@ that contains the file paths.</p>
 135
 136
 137
-138</pre>
+138
+139
+140</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">download_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">album</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Album</span><span class="p">,</span>
-                   <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                   <span class="n">stream</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Generator</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">download_album</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">album</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Album</span><span class="p">,</span>
+        <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Generator</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Downloads an album from Deezer using the specified Album object.</span>
 
