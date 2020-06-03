@@ -114,10 +114,10 @@ class Session:
         return file_path
 
     def download_album(
-        self,
-        album: types.Album,
-        bitrate: str = None,
-        stream: bool = False
+            self,
+            album: types.Album,
+            bitrate: str = None,
+            stream: bool = False
     ) -> Union[Generator[Path, Any, None], Tuple[Path, ...]]:
         """
         Downloads an album from Deezer using the specified Album object.
