@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://deethon.github.io/deethon/reference/types/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.2.3" name="generator"/>
 <title>types.py - Deethon Docs</title>
-<link href="../../assets/stylesheets/main.a2408e81.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
 <meta content="#ef5350" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1057,7 +1057,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <span class="sd">    Create a new album instance with the specified album ID.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        album_id (Union[int, str]): The Deezer album ID.</span>
+<span class="sd">        album_id: The Deezer album ID.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        DeezerApiError: The Deezer API request replied with an error.</span>
@@ -1195,7 +1195,7 @@ instance is created.</p>
 <span class="sd">    instance is created.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        album_id (Union[int, str]): The Deezer album ID.</span>
+<span class="sd">        album_id: The Deezer album ID.</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">album_id</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">album_id</span><span class="p">]</span>
@@ -1564,7 +1564,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <span class="sd">    Create a new track instance with the specified track ID.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        track_id (Union[int, str]): The Deezer track ID.</span>
+<span class="sd">        track_id: The Deezer track ID.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        DeezerApiError: The Deezer API request replied with an error.</span>
@@ -1723,7 +1723,7 @@ instance is created and cached.</p>
 <span class="sd">    instance is created and cached.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        track_id (Union[int, str]): The Deezer album ID.</span>
+<span class="sd">        track_id: The Deezer album ID.</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span>
@@ -1882,13 +1882,13 @@ to the Deezer API.</p>
 </footer>
 </div>
 <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.c03f0417.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

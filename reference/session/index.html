@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://deethon.github.io/deethon/reference/session/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.2.3" name="generator"/>
 <title>session.py - Deethon Docs</title>
-<link href="../../assets/stylesheets/main.a2408e81.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
 <meta content="#ef5350" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -436,29 +436,12 @@ download<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </tr>
 <tr>
 <td><code>progress_callback</code></td>
-<td><code>callable</code></td>
+<td><code>Optional[Callable]</code></td>
 <td>
 <p>A callable that accepts
 <code>current</code> and <code>bytes</code> arguments.</p>
 </td>
 <td><code>None</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Path</code></td>
-<td>
-<p>The file path of the downloaded track</p>
-</td>
 </tr>
 </tbody>
 </table>
@@ -522,10 +505,7 @@ supported for download.</p>
 70
 71
 72
-73
-74
-75
-76</pre>
+73</pre>
 </div>
 </td>
 <td class="code">
@@ -533,19 +513,16 @@ supported for download.</p>
 <pre><span></span><code><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
              <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"FLAC"</span><span class="p">,</span>
-             <span class="n">progress_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+             <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Downloads the given Deezer url if possible.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        url (str): The URL of the track or album to download.</span>
-<span class="sd">        bitrate (str, optional): The preferred bitrate to download</span>
+<span class="sd">        url: The URL of the track or album to download.</span>
+<span class="sd">        bitrate: The preferred bitrate to download</span>
 <span class="sd">            (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).</span>
 <span class="sd">        progress_callback (callable): A callable that accepts</span>
 <span class="sd">            `current` and `bytes` arguments.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Path: The file path of the downloaded track</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ActionNotSupported: The specified URL is not (yet)</span>
@@ -642,7 +619,10 @@ that contains the file paths.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>116
+<pre><span></span>113
+114
+115
+116
 117
 118
 119
@@ -663,10 +643,7 @@ that contains the file paths.</p>
 134
 135
 136
-137
-138
-139
-140</pre>
+137</pre>
 </div>
 </td>
 <td class="code">
@@ -741,7 +718,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 </tr>
 <tr>
 <td><code>progress_callback</code></td>
-<td><code>callable</code></td>
+<td><code></code></td>
 <td>
 <p>A callable that accepts
 <code>current</code> and <code>bytes</code> arguments.</p>
@@ -773,7 +750,10 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 78
+<pre><span></span> 75
+ 76
+ 77
+ 78
  79
  80
  81
@@ -806,10 +786,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 108
 109
 110
-111
-112
-113
-114</pre>
+111</pre>
 </div>
 </td>
 <td class="code">
@@ -823,9 +800,9 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 
 <span class="sd">    Args:</span>
 <span class="sd">        track: A [Track][deethon.types.Track] instance.</span>
-<span class="sd">        bitrate (optional): The preferred bitrate to download</span>
+<span class="sd">        bitrate: The preferred bitrate to download</span>
 <span class="sd">            (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).</span>
-<span class="sd">        progress_callback (callable): A callable that accepts</span>
+<span class="sd">        progress_callback: A callable that accepts</span>
 <span class="sd">            `current` and `bytes` arguments.</span>
 
 <span class="sd">    Returns:</span>
@@ -922,13 +899,13 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 </footer>
 </div>
 <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../../assets/javascripts/worker/search.c03f0417.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
