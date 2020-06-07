@@ -1,7 +1,7 @@
 """This module contains the Session class."""
 import re
 from pathlib import Path
-from typing import Union, Generator, Any, Tuple
+from typing import Union, Generator, Any, Tuple, Optional, Callable
 
 import requests
 
@@ -43,19 +43,16 @@ class Session:
     def download(self,
                  url: str,
                  bitrate: str = "FLAC",
-                 progress_callback=None):
+                 progress_callback: Optional[Callable] = None):
         """
         Downloads the given Deezer url if possible.
 
         Args:
-            url (str): The URL of the track or album to download.
-            bitrate (str, optional): The preferred bitrate to download
+            url: The URL of the track or album to download.
+            bitrate: The preferred bitrate to download
                 (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
             progress_callback (callable): A callable that accepts
                 `current` and `bytes` arguments.
-
-        Returns:
-            Path: The file path of the downloaded track
 
         Raises:
             ActionNotSupported: The specified URL is not (yet)
@@ -84,9 +81,9 @@ class Session:
 
         Args:
             track: A [Track][deethon.types.Track] instance.
-            bitrate (optional): The preferred bitrate to download
+            bitrate: The preferred bitrate to download
                 (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
-            progress_callback (callable): A callable that accepts
+            progress_callback: A callable that accepts
                 `current` and `bytes` arguments.
 
         Returns:

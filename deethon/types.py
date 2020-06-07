@@ -23,7 +23,7 @@ class Album:
         instance is created.
 
         Args:
-            album_id (Union[int, str]): The Deezer album ID.
+            album_id: The Deezer album ID.
         """
         if album_id in cls._cache.keys():
             return cls._cache[album_id]
@@ -36,7 +36,7 @@ class Album:
         Create a new album instance with the specified album ID.
 
         Args:
-            album_id (Union[int, str]): The Deezer album ID.
+            album_id: The Deezer album ID.
 
         Raises:
             DeezerApiError: The Deezer API request replied with an error.
@@ -153,7 +153,7 @@ class Track:
         instance is created and cached.
 
         Args:
-            track_id (Union[int, str]): The Deezer album ID.
+            track_id: The Deezer album ID.
         """
         if track_id in cls._cache.keys():
             return cls._cache[track_id]
@@ -166,7 +166,7 @@ class Track:
         Create a new track instance with the specified track ID.
 
         Args:
-            track_id (Union[int, str]): The Deezer track ID.
+            track_id: The Deezer track ID.
 
         Raises:
             DeezerApiError: The Deezer API request replied with an error.
