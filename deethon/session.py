@@ -75,7 +75,7 @@ class Session:
     def download_track(self,
                        track: types.Track,
                        bitrate: str = "FLAC",
-                       progress_callback=None) -> Path:
+                       progress_callback: Optional[Callable] = None) -> Path:
         """
         Downloads the given [Track][deethon.types.Track] object.
 
@@ -88,16 +88,30 @@ class Session:
 
         Returns:
             The file path of the downloaded track.
+
+        Raises:
+            DownlaodError: The track is not downloadable.
         """
         track.add_more_tags(self)
-        bitrate = utils.get_quality(bitrate)
-        download_url = utils.get_stream_url(track, bitrate)
-
-        ext = ".flac" if bitrate == "9" else ".mp3"
-        file_path = utils.get_file_path(track, ext)
+        quality = utils.get_quality(bitrate)
+        download_url = utils.get_stream_url(track, quality)
         crypt = self._req.get(download_url, stream=True)
+
         total = int(crypt.headers["Content-Length"])
+        if not total:
+            if bitrate == 'FLAC':
+                fallback_bitrate = 'MP3_320'
+            elif bitrate == 'MP3_320':
+                fallback_bitrate = 'MP3_256'
+            elif bitrate == 'MP3_256':
+                fallback_bitrate = 'MP3_128'
+            else:
+                raise errors.DownloadError(track.id)
+            return self.download_track(track, fallback_bitrate, progress_callback)
         current = 0
+
+        ext = ".flac" if quality == "9" else ".mp3"
+        file_path = utils.get_file_path(track, ext)
 
         with file_path.open("wb") as f:
             for data in utils.decrypt_file(crypt.iter_content(2048), track.id):
