@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='deethon',
-    version='0.4.0',
+    version='0.4.1',
     description='Python3 library to easily download music from Deezer',
     python_requires='==3.*,>=3.7.0',
     project_urls={
