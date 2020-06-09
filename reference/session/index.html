@@ -619,21 +619,7 @@ that contains the file paths.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
+<pre><span></span>127
 128
 129
 130
@@ -643,7 +629,21 @@ that contains the file paths.</p>
 134
 135
 136
-137</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
 </div>
 </td>
 <td class="code">
@@ -718,7 +718,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 </tr>
 <tr>
 <td><code>progress_callback</code></td>
-<td><code></code></td>
+<td><code>Optional[Callable]</code></td>
 <td>
 <p>A callable that accepts
 <code>current</code> and <code>bytes</code> arguments.</p>
@@ -740,6 +740,23 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <td><code>Path</code></td>
 <td>
 <p>The file path of the downloaded track.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DownlaodError</code></td>
+<td>
+<p>The track is not downloadable.</p>
 </td>
 </tr>
 </tbody>
@@ -786,7 +803,21 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 108
 109
 110
-111</pre>
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
 </div>
 </td>
 <td class="code">
@@ -794,7 +825,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <pre><span></span><code><span class="k">def</span> <span class="nf">download_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                    <span class="n">track</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Track</span><span class="p">,</span>
                    <span class="n">bitrate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"FLAC"</span><span class="p">,</span>
-                   <span class="n">progress_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+                   <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Downloads the given [Track][deethon.types.Track] object.</span>
 
@@ -807,16 +838,30 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The file path of the downloaded track.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        DownlaodError: The track is not downloadable.</span>
 <span class="sd">    """</span>
     <span class="n">track</span><span class="o">.</span><span class="n">add_more_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">bitrate</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_quality</span><span class="p">(</span><span class="n">bitrate</span><span class="p">)</span>
-    <span class="n">download_url</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_stream_url</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">bitrate</span><span class="p">)</span>
-
-    <span class="n">ext</span> <span class="o">=</span> <span class="s2">".flac"</span> <span class="k">if</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s2">"9"</span> <span class="k">else</span> <span class="s2">".mp3"</span>
-    <span class="n">file_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_file_path</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+    <span class="n">quality</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_quality</span><span class="p">(</span><span class="n">bitrate</span><span class="p">)</span>
+    <span class="n">download_url</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_stream_url</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">quality</span><span class="p">)</span>
     <span class="n">crypt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">download_url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">crypt</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"Content-Length"</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">total</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'FLAC'</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_320'</span>
+        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'MP3_320'</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_256'</span>
+        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'MP3_256'</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_128'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">DownloadError</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_track</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">fallback_bitrate</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">)</span>
     <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">ext</span> <span class="o">=</span> <span class="s2">".flac"</span> <span class="k">if</span> <span class="n">quality</span> <span class="o">==</span> <span class="s2">"9"</span> <span class="k">else</span> <span class="s2">".mp3"</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_file_path</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">decrypt_file</span><span class="p">(</span><span class="n">crypt</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span> <span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
@@ -827,7 +872,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 
     <span class="n">utils</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">file_path</span>
+    <span class="k">return</span> <span class="n">file_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
 </code></pre>
 </div>
 </td>

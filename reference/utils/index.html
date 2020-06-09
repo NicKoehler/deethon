@@ -330,29 +330,29 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97</pre>
+<pre><span></span> 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101</pre>
 </div>
 </td>
 <td class="code">
@@ -462,7 +462,11 @@ get_file_path<span class="p">(</span><span class="n">track</span><span class="p"
 46
 47
 48
-49</pre>
+49
+50
+51
+52
+53</pre>
 </div>
 </td>
 <td class="code">
@@ -478,11 +482,15 @@ get_file_path<span class="p">(</span><span class="n">track</span><span class="p"
 <span class="sd">    Returns:</span>
 <span class="sd">        A Path object containing the track path.</span>
 <span class="sd">    """</span>
-    <span class="n">std_dir</span> <span class="o">=</span> <span class="s2">"Songs/"</span>
-    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">std_dir</span><span class="si">}{</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">artist</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">forbidden_chars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="sa">r</span><span class="s1">'\/*?:"&lt;&gt;|'</span><span class="p">)</span>
+    <span class="n">album_artist</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">artist</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">forbidden_chars</span><span class="p">)</span>
+    <span class="n">album_title</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">forbidden_chars</span><span class="p">)</span>
+
+    <span class="n">std_dir</span> <span class="o">=</span> <span class="s2">"Songs"</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">std_dir</span><span class="p">,</span> <span class="n">album_artist</span><span class="p">,</span> <span class="n">album_title</span><span class="p">)</span>
     <span class="n">dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">title</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span>
-    <span class="k">return</span> <span class="n">dir_path</span> <span class="o">/</span> <span class="n">file_name</span>
+    <span class="k">return</span> <span class="n">dir_path</span> <span class="o">/</span> <span class="n">file_name</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">forbidden_chars</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -550,11 +558,7 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>52
-53
-54
-55
-56
+<pre><span></span>56
 57
 58
 59
@@ -570,7 +574,11 @@ get_stream_url<span class="p">(</span><span class="n">track</span><span class="p
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76</pre>
 </div>
 </td>
 <td class="code">
@@ -647,11 +655,7 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>100
-101
-102
-103
-104
+<pre><span></span>104
 105
 106
 107
@@ -710,7 +714,11 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 160
 161
 162
-163</pre>
+163
+164
+165
+166
+167</pre>
 </div>
 </td>
 <td class="code">
