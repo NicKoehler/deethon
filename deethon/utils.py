@@ -42,11 +42,15 @@ def get_file_path(track: Track, ext: str) -> Path:
     Returns:
         A Path object containing the track path.
     """
-    std_dir = "Songs/"
-    dir_path = Path(f"{std_dir}{track.album.artist}/{track.album.title}")
+    forbidden_chars = dict((ord(char), None) for char in r'\/*?:"<>|')
+    album_artist = track.album.artist.translate(forbidden_chars)
+    album_title = track.album.title.translate(forbidden_chars)
+
+    std_dir = "Songs"
+    dir_path = Path(std_dir, album_artist, album_title)
     dir_path.mkdir(parents=True, exist_ok=True)
     file_name = f"{track.number} - {track.title}{ext}"
-    return dir_path / file_name
+    return dir_path / file_name.translate(forbidden_chars)
 
 
 def get_stream_url(track: Track, quality: str) -> str:
