@@ -122,7 +122,7 @@ class Session:
 
         utils.tag(file_path, track)
 
-        return file_path
+        return file_path.absolute()
 
     def download_album(
             self,
