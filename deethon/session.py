@@ -90,7 +90,7 @@ class Session:
             The file path of the downloaded track.
 
         Raises:
-            DownlaodError: The track is not downloadable.
+            DownloadError: The track is not downloadable.
         """
         track.add_more_tags(self)
         quality = utils.get_quality(bitrate)
