@@ -17,7 +17,7 @@
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
 <link href="../../assets/css/custom.css" rel="stylesheet"/>
 </head>
-<body data-md-color-accent="black" data-md-color-primary="red" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="indigo" data-md-color-primary="red" data-md-color-scheme="" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
@@ -213,6 +213,11 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/" title="Changelog">
+      Changelog
+    </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../code_of_conduct/" title="Code of Conduct">
       Code of Conduct
     </a>
@@ -322,7 +327,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code>str</code></td>
 <td>
 <p>The arl token is used to make API requests
-on Deezers unofficial API</p>
+on Deezer's unofficial API</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -379,7 +384,7 @@ on Deezers unofficial API</p>
 
 <span class="sd">    Args:</span>
 <span class="sd">        arl_token (str): The arl token is used to make API requests</span>
-<span class="sd">            on Deezers unofficial API</span>
+<span class="sd">            on Deezer's unofficial API</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        DeezerLoginError: The specified arl token is not valid.</span>
@@ -475,10 +480,7 @@ supported for download.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>43
-44
-45
-46
+<pre><span></span>46
 47
 48
 49
@@ -505,7 +507,9 @@ supported for download.</p>
 70
 71
 72
-73</pre>
+73
+74
+75</pre>
 </div>
 </td>
 <td class="code">
@@ -529,8 +533,7 @@ supported for download.</p>
 <span class="sd">            supported for download.</span>
 <span class="sd">        InvalidUrlError: The specified URL is not a valid deezer link.</span>
 <span class="sd">    """</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
-        <span class="sa">r</span><span class="s2">"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)"</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)"</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
         <span class="n">mode</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">content_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
@@ -619,9 +622,7 @@ that contains the file paths.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>127
-128
-129
+<pre><span></span>129
 130
 131
 132
@@ -643,7 +644,9 @@ that contains the file paths.</p>
 148
 149
 150
-151</pre>
+151
+152
+153</pre>
 </div>
 </td>
 <td class="code">
@@ -754,7 +757,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 </thead>
 <tbody>
 <tr>
-<td><code>DownlaodError</code></td>
+<td><code>DownloadError</code></td>
 <td>
 <p>The track is not downloadable.</p>
 </td>
@@ -767,9 +770,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 75
- 76
- 77
+<pre><span></span> 77
  78
  79
  80
@@ -817,7 +818,9 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 122
 123
 124
-125</pre>
+125
+126
+127</pre>
 </div>
 </td>
 <td class="code">
@@ -840,7 +843,7 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 <span class="sd">        The file path of the downloaded track.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        DownlaodError: The track is not downloadable.</span>
+<span class="sd">        DownloadError: The track is not downloadable.</span>
 <span class="sd">    """</span>
     <span class="n">track</span><span class="o">.</span><span class="n">add_more_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="n">quality</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_quality</span><span class="p">(</span><span class="n">bitrate</span><span class="p">)</span>
@@ -849,12 +852,12 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 
     <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">crypt</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"Content-Length"</span><span class="p">])</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">total</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'FLAC'</span><span class="p">:</span>
-            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_320'</span>
-        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'MP3_320'</span><span class="p">:</span>
-            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_256'</span>
-        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s1">'MP3_256'</span><span class="p">:</span>
-            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s1">'MP3_128'</span>
+        <span class="k">if</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s2">"FLAC"</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s2">"MP3_320"</span>
+        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s2">"MP3_320"</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s2">"MP3_256"</span>
+        <span class="k">elif</span> <span class="n">bitrate</span> <span class="o">==</span> <span class="s2">"MP3_256"</span><span class="p">:</span>
+            <span class="n">fallback_bitrate</span> <span class="o">=</span> <span class="s2">"MP3_128"</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">DownloadError</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_track</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">fallback_bitrate</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">)</span>
