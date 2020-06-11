@@ -17,6 +17,7 @@ nav:
       - session.py: reference/session.md
       - types.py: reference/types.md
       - utils.py: reference/utils.md
+  - changelog.md
   - Code of Conduct: code_of_conduct.md
   - License: license.md
 
