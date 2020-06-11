@@ -3,7 +3,7 @@ site_url: https://deethon.github.io/deethon/
 repo_name: deethon/deethon
 repo_url: https://github.com/deethon/deethon
 
-copyright: Copyright © 2020 Deethon
+copyright: Copyright &copy; 2020 Deethon
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -26,7 +26,7 @@ theme:
     logo: material/rocket
   palette:
     primary: red
-    accent: black
+    accent: indigo
 
 extra_css:
   - assets/css/custom.css
@@ -35,6 +35,12 @@ markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
+  - pymdownx.magiclink:
+      provider: github
+      user: deethon
+      repo: deethon
+      repo_url_shorthand: True
+      repo_url_shortener: True
   - toc:
       permalink: "¤"
 
