@@ -473,7 +473,7 @@ description = "Load Python objects documentation."
 name = "pytkdocs"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "0.5.1"
+version = "0.4.0"
 
 [[package]]
 category = "dev"
@@ -606,7 +606,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "f825b003fe3c4ac95cdac63ecbccc72a660e68f836dc42b890c390d155c66fd1"
+content-hash = "a9a51cdb0601342718ad80891564d17c2b78cd5214150ad24273d218659991a2"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -868,8 +868,8 @@ pytest-cov = [
     {file = "pytest_cov-2.9.0-py2.py3-none-any.whl", hash = "sha256:c87dfd8465d865655a8213859f1b4749b43448b5fae465cb981e16d52a811424"},
 ]
 pytkdocs = [
-    {file = "pytkdocs-0.5.1-py3-none-any.whl", hash = "sha256:71cbd81bfc39b8747d92f02e5027dca80a5702b7090cee285d3a0a1f41bff779"},
-    {file = "pytkdocs-0.5.1.tar.gz", hash = "sha256:1be3f4bf9f69accbd86cb2b070f0b3c1f9dd61b1f8e6f391da0c68bd2dde2942"},
+    {file = "pytkdocs-0.4.0-py3-none-any.whl", hash = "sha256:6e3574da390a1b11cfa8b3f1d63028bf01057a4bd331ac35f043b7b7662ca6d7"},
+    {file = "pytkdocs-0.4.0.tar.gz", hash = "sha256:7b0542955a938edeef785c2d93cb40ec71ca7271cf0b63ae9b4b5acd355c14cc"},
 ]
 pyyaml = [
     {file = "PyYAML-5.3.1-cp27-cp27m-win32.whl", hash = "sha256:74809a57b329d6cc0fdccee6318f44b9b8649961fa73144a98735b0aaf029f1f"},
