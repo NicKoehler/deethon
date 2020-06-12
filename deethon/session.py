@@ -17,7 +17,7 @@ class Session:
 
         Args:
             arl_token (str): The arl token is used to make API requests
-                on Deezers unofficial API
+                on Deezer's unofficial API
 
         Raises:
             DeezerLoginError: The specified arl token is not valid.
@@ -37,8 +37,11 @@ class Session:
             "input": "3",
             "method": method,
         }
-        return self._req.post(consts.API_URL, params=params,
-                              json=json).json()["results"]
+        return self._req.post(
+            consts.API_URL,
+            params=params,
+            json=json
+        ).json()["results"]
 
     def download(self,
                  url: str,
@@ -59,8 +62,7 @@ class Session:
                 supported for download.
             InvalidUrlError: The specified URL is not a valid deezer link.
         """
-        match = re.match(
-            r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
+        match = re.match(r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
             mode = match.group(1)
             content_id = int(match.group(2))
@@ -99,12 +101,12 @@ class Session:
 
         total = int(crypt.headers["Content-Length"])
         if not total:
-            if bitrate == 'FLAC':
-                fallback_bitrate = 'MP3_320'
-            elif bitrate == 'MP3_320':
-                fallback_bitrate = 'MP3_256'
-            elif bitrate == 'MP3_256':
-                fallback_bitrate = 'MP3_128'
+            if bitrate == "FLAC":
+                fallback_bitrate = "MP3_320"
+            elif bitrate == "MP3_320":
+                fallback_bitrate = "MP3_256"
+            elif bitrate == "MP3_256":
+                fallback_bitrate = "MP3_128"
             else:
                 raise errors.DownloadError(track.id)
             return self.download_track(track, fallback_bitrate, progress_callback)

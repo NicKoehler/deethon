@@ -7,6 +7,7 @@ dist/
 site/
 Songs/
 *.egg-info/
+pip-wheel-metadata/
 *.cmd
 coverage.xml
 .coverage

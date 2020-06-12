@@ -5,7 +5,7 @@ class DeezerLoginError(Exception):
     """Occurs when login to Deezer fails."""
 
     def __init__(self):
-        super().__init__("Failed to login to Deezer. Please check your arltoken.")
+        super().__init__("Failed to login to Deezer. Please check your arl token.")
 
 
 class DeezerApiError(Exception):

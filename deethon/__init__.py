@@ -9,5 +9,5 @@ from . import types, utils, consts, errors, session
 from .session import Session
 from .types import Album, Track
 
-__all__ = ['Session', 'Album', 'Track', 'errors',
-           'utils', 'consts', 'types', 'session']
+__all__ = ["Session", "Album", "Track", "errors",
+           "utils", "consts", "types", "session"]

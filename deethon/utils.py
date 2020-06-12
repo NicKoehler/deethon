@@ -65,9 +65,9 @@ def get_stream_url(track: Track, quality: str) -> str:
         The direct download url.
     """
     data = b"\xa4".join(
-        a.encode()
-        for a in [track.md5_origin, quality, str(track.id),
-                  str(track.media_version)])
+        a.encode() for a in [track.md5_origin, quality,
+                             str(track.id), track.media_version]
+    )
     data = b"\xa4".join([md5hex(data), data]) + b"\xa4"
     if len(data) % 16:
         data += b"\x00" * (16 - len(data) % 16)
@@ -92,8 +92,6 @@ def decrypt_file(input_data: Iterator, track_id: int) -> Generator[bytes, Any, N
         chr(h[i] ^ h[i + 16] ^ b"g4el58wc0zvf9na1"[i]) for i in range(16))
     seg = 0
     for data in input_data:
-        if not data:
-            break
         if (seg % 3) == 0 and len(data) == 2048:
             data = Blowfish.new(key.encode(), Blowfish.MODE_CBC,
                                 a2b_hex("0001020304050607")).decrypt(data)
@@ -115,34 +113,31 @@ def tag(file_path: Path, track: Track) -> None:
     if ext == ".mp3":
         tags = ID3()
 
-        tags.add(Frames['TALB'](encoding=3, text=track.album.title))
-        tags.add(Frames['TBPM'](encoding=3, text=str(track.bpm)))
-        tags.add(Frames['TCON'](encoding=3, text=track.album.genres))
-        tags.add(Frames['TDAT'](encoding=3,
-                                text=track.release_date.strftime('%d%m')))
-        tags.add(Frames['TIT2'](encoding=3, text=track.title))
-        tags.add(Frames['TPE1'](encoding=3, text=track.artist))
-        tags.add(Frames['TPE2'](encoding=3, text=track.album.artist))
-        tags.add(Frames['TPOS'](encoding=3, text=str(track.disk_number)))
-        tags.add(Frames['TPUB'](encoding=3, text=track.album.label))
-        tags.add(Frames['TRCK'](encoding=3,
+        tags.add(Frames["TALB"](encoding=3, text=track.album.title))
+        tags.add(Frames["TBPM"](encoding=3, text=str(track.bpm)))
+        tags.add(Frames["TCON"](encoding=3, text=track.album.genres))
+        tags.add(Frames["TDAT"](encoding=3,
+                                text=track.release_date.strftime("%d%m")))
+        tags.add(Frames["TIT2"](encoding=3, text=track.title))
+        tags.add(Frames["TPE1"](encoding=3, text=track.artist))
+        tags.add(Frames["TPE2"](encoding=3, text=track.album.artist))
+        tags.add(Frames["TPOS"](encoding=3, text=str(track.disk_number)))
+        tags.add(Frames["TPUB"](encoding=3, text=track.album.label))
+        tags.add(Frames["TRCK"](encoding=3,
                                 text=f"{track.number}/{track.album.total_tracks}"))
-        tags.add(Frames['TSRC'](encoding=3, text=track.isrc))
-        tags.add(Frames['TYER'](encoding=3, text=str(track.release_date.year)))
+        tags.add(Frames["TSRC"](encoding=3, text=track.isrc))
+        tags.add(Frames["TYER"](encoding=3, text=str(track.release_date.year)))
 
-        tags.add(Frames['TXXX'](
-            encoding=3,
-            desc="replaygain_track_peak",
-            text=str(track.replaygain_track_peak),
-        ))
+        tags.add(Frames["TXXX"](encoding=3,
+                                desc="replaygain_track_peak",
+                                text=str(track.replaygain_track_peak)))
 
-        tags.add(Frames['APIC'](
-            encoding=3,
-            mime="image/jpeg",
-            type=3,
-            desc="Cover",
-            data=track.album.cover_xl,
-        ))
+        tags.add(Frames["APIC"](encoding=3,
+                                mime="image/jpeg",
+                                type=3,
+                                desc="Cover",
+                                data=track.album.cover_xl))
+
         tags.save(file_path, v2_version=3)
 
     else:
