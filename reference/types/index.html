@@ -1013,7 +1013,9 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 35
+<pre><span></span> 33
+ 34
+ 35
  36
  37
  38
@@ -1078,10 +1080,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
  97
  98
  99
-100
-101
-102
-103</pre>
+100</pre>
 </div>
 </td>
 <td class="code">
@@ -1138,8 +1137,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="bp">self</span><span class="o">.</span><span class="n">record_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"record_type"</span><span class="p">]</span>
     <span class="sd">"""The record type of the album."""</span>
 
-    <span class="n">date</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"release_date"</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">release_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">release_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"release_date"</span><span class="p">],</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
     <span class="sd">"""The release date of the album."""</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
@@ -1214,9 +1212,7 @@ instance is created.</p>
 28
 29
 30
-31
-32
-33</pre>
+31</pre>
 </div>
 </td>
 <td class="code">
@@ -1230,11 +1226,9 @@ instance is created.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        album_id: The Deezer album ID.</span>
 <span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">album_id</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">album_id</span><span class="p">]</span>
-    <span class="n">_album</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Album</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">album_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">_album</span>
-    <span class="k">return</span> <span class="n">_album</span>
+    <span class="k">if</span> <span class="n">album_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">album_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Album</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">album_id</span><span class="p">]</span>
 </code></pre>
 </div>
 </td>
@@ -1524,7 +1518,15 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>166
+<pre><span></span>158
+159
+160
+161
+162
+163
+164
+165
+166
 167
 168
 169
@@ -1615,16 +1617,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 254
 255
 256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266</pre>
+257</pre>
 </div>
 </td>
 <td class="code">
@@ -1684,8 +1677,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="bp">self</span><span class="o">.</span><span class="n">replaygain_track_peak</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"gain"</span><span class="p">]</span>
     <span class="sd">"""The Replay Gain value of the track."""</span>
 
-    <span class="n">date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"release_date"</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">release_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">release_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"release_date"</span><span class="p">],</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
     <span class="sd">"""The release date of the track."""</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
@@ -1778,20 +1770,19 @@ instance is created and cached.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>151
+<pre><span></span>144
+145
+146
+147
+148
+149
+150
+151
 152
 153
 154
 155
-156
-157
-158
-159
-160
-161
-162
-163
-164</pre>
+156</pre>
 </div>
 </td>
 <td class="code">
@@ -1805,11 +1796,10 @@ instance is created and cached.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        track_id: The Deezer album ID.</span>
 <span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span>
-    <span class="n">track</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span>
-    <span class="k">return</span> <span class="n">track</span>
+    <span class="k">if</span> <span class="n">track_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span>
 </code></pre>
 </div>
 </td>
@@ -1853,25 +1843,21 @@ to the Deezer API.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>273
+<pre><span></span>264
+265
+266
+267
+268
+269
+270
+271
+272
+273
 274
 275
 276
 277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291</pre>
+278</pre>
 </div>
 </td>
 <td class="code">
@@ -1887,14 +1873,10 @@ to the Deezer API.</p>
     <span class="n">r</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_api</span><span class="p">(</span>
         <span class="n">consts</span><span class="o">.</span><span class="n">METHOD_GET_TRACK</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">csrf_token</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sng_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
     <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">md5_origin</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"MD5_ORIGIN"</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">media_version</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"MEDIA_VERSION"</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="s2">"composer"</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">composer</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">][</span><span class="s2">"composer"</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s2">"author"</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">][</span><span class="s2">"author"</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">composer</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"composer"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"author"</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>

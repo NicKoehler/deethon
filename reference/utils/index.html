@@ -335,29 +335,27 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101</pre>
+<pre><span></span>79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
 </div>
 </td>
 <td class="code">
@@ -378,8 +376,6 @@ decrypt_file<span class="p">(</span><span class="n">input_data</span><span class
         <span class="nb">chr</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">16</span><span class="p">]</span> <span class="o">^</span> <span class="sa">b</span><span class="s2">"g4el58wc0zvf9na1"</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
     <span class="n">seg</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">input_data</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">break</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">seg</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2048</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span>
                                 <span class="n">a2b_hex</span><span class="p">(</span><span class="s2">"0001020304050607"</span><span class="p">))</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -660,7 +656,9 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>104
+<pre><span></span>102
+103
+104
 105
 106
 107
@@ -718,9 +716,7 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 159
 160
 161
-162
-163
-164</pre>
+162</pre>
 </div>
 </td>
 <td class="code">
