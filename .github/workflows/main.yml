@@ -56,3 +56,15 @@ jobs:
       - name: Run pytest
         shell: bash
         run: poetry run pytest -q tests
+
+      - name: Create coverage file
+        if: matrix.os == 'Ubuntu' && matrix.python-version == 3.8
+        shell: bash
+        run: poetry run pytest -q --cov=deethon --cov-report=xml tests
+
+      - name: Upload test coverage to Codacy
+        if: matrix.os == 'Ubuntu' && matrix.python-version == 3.8
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage.xml
