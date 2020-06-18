@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import TYPE_CHECKING, Optional, List, Dict, Any
+from typing import TYPE_CHECKING, Optional, List, Dict, Any, ClassVar
 
 import requests
 
@@ -13,9 +13,52 @@ if TYPE_CHECKING:
 
 
 class Album:
-    """The Album class contains several information about an album."""
+    """
+    The Album class contains several information about an album.
 
-    _cache = {}
+    Attributes:
+        artist: The main artist of the album.
+        basic_tracks_data: A list that contains basic tracks data.
+        cover_small_link: The link for the album cover in small size.
+        cover_medium_link: The link for the album cover in medium size.
+        cover_big_link: The link for the album cover in big size.
+        cover_xl_link: The link for the album cover in xl size.
+        duration: The duration in seconds of the album.
+        genres:A list of genres of the album.
+        id: int The ID of the album.
+        label: The label of the album.
+        link: The Deezer link of the album.
+        record_type: The record type of the album.
+        release_date: The release date of the album.
+        title: The title of the album.
+        total_tracks: The total number of tracks in the album.
+        upc: The Universal Product Code (UPC) of the album.
+
+    """
+
+    _cache: ClassVar[Dict[int, Album]] = {}
+
+    artist: str
+    basic_tracks_data: List[Dict[str, Any]]
+    cover_small_link: str
+    cover_medium_link: str
+    cover_big_link: str
+    cover_xl_link: str
+    duration: int
+    genres: List[str]
+    id: int
+    label: str
+    link: str
+    record_type: str
+    release_date: datetime
+    title: str
+    total_tracks: int
+    upc: str
+
+    _cover_small: Optional[bytes] = None
+    _cover_medium: Optional[bytes] = None
+    _cover_big: Optional[bytes] = None
+    _cover_xl: Optional[bytes] = None
 
     def __new__(cls, album_id: int):
         """
@@ -25,6 +68,7 @@ class Album:
 
         Args:
             album_id: The Deezer album ID.
+
         """
         if album_id not in cls._cache.keys():
             cls._cache[album_id] = super(Album, cls).__new__(cls)
@@ -39,6 +83,7 @@ class Album:
 
         Raises:
             DeezerApiError: The Deezer API request replied with an error.
+
         """
         r = requests.get(f"https://api.deezer.com/album/{album_id}").json()
         if "error" in r:
@@ -46,58 +91,22 @@ class Album:
                                         r["error"]["message"],
                                         r["error"]["code"])
 
-        self.artist: str = r["artist"]["name"]
-        """The main artist of the album."""
-
-        self.basic_tracks_data: List[Dict[str, Any]] = r["tracks"]["data"]
-        """A list that contains basic tracks data."""
-
-        self.cover_small_link: str = r["cover_small"]
-        """The link for the album cover in small size."""
-
-        self.cover_medium_link: str = r["cover_medium"]
-        """The link for the album cover in medium size"""
-
-        self.cover_big_link: str = r["cover_big"]
-        """The link for the album cover in big size"""
-
-        self.cover_xl_link: str = r["cover_xl"]
-        """The link for the album cover in xl size"""
-
-        self.duration: int = r["duration"]
-        """The duration in seconds of the album."""
-
-        self.genres: List[str] = [genre["name"] for genre in r["genres"]["data"]]
-        """A list of genres of the album."""
-
-        self.id: int = r["id"]
-        """The ID of the album."""
-
-        self.label: str = r["label"]
-        """The label of the album."""
-
-        self.link: str = r["link"]
-        """The Deezer link of the album."""
-
-        self.record_type: str = r["record_type"]
-        """The record type of the album."""
-
-        self.release_date: datetime = datetime.strptime(r["release_date"], "%Y-%m-%d")
-        """The release date of the album."""
-
-        self.title: str = r["title"]
-        """The title of the album."""
-
-        self.total_tracks: int = r["nb_tracks"]
-        """The total number of tracks in the album."""
-
-        self.upc: str = r["upc"]
-        """The Universal Product Code (UPC) of the album."""
-
-        self._cover_small = None
-        self._cover_medium = None
-        self._cover_big = None
-        self._cover_xl = None
+        self.artist = r["artist"]["name"]
+        self.basic_tracks_data = r["tracks"]["data"]
+        self.cover_small_link = r["cover_small"]
+        self.cover_medium_link = r["cover_medium"]
+        self.cover_big_link = r["cover_big"]
+        self.cover_xl_link = r["cover_xl"]
+        self.duration = r["duration"]
+        self.genres = [genre["name"] for genre in r["genres"]["data"]]
+        self.id = r["id"]
+        self.label = r["label"]
+        self.link = r["link"]
+        self.record_type = r["record_type"]
+        self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        self.title = r["title"]
+        self.total_tracks = r["nb_tracks"]
+        self.upc = r["upc"]
 
     @property
     def cover_small(self) -> bytes:
@@ -137,9 +146,60 @@ class Album:
 
 
 class Track:
-    """The Track class contains several information about a track."""
+    """
+    The Track class contains several information about a track.
 
-    _cache = {}
+    Attributes:
+        album_id: The Deezer album ID to which the track belongs.
+        artist: The main artist of the track.
+        artists: A list of artists featured in the track.
+        bpm: Beats per minute of the track.
+        disk_number: The disc number of the track.
+        duration: The duration of the track.
+        id: The Deezer ID of the track.
+        isrc: The International Standard Recording Code (ISRC) of the track.
+        link: The Deezer link of the track.
+        number: The position of the track.
+        preview_link: The link to a 30 second preview of the track.
+        rank: The rank of the track on Deezer
+        replaygain_track_peak: The Replay Gain value of the track.
+        release_date: The release date of the track.
+        title: The title of the track.
+        title_short: The short title of the track.
+
+        md5_origin: The md5 origin of the track.
+        media_version: The media version of the track.
+        composer: The author of the track.
+        author: A list of one or more authors of the track.
+
+    !!! Info
+        `md5_origin`, `media_version`, `composer` and `author` are only set after
+        [add_more_tags()][deethon.types.Track.add_more_tags] is
+        called. Defaults to `None`.
+    """
+
+    _cache: ClassVar[Dict[int, Track]] = {}
+
+    album_id: int
+    artist: str
+    artists: List[str]
+    bpm: int
+    disk_number: int
+    duration: int
+    id: int
+    isrc: str
+    link: str
+    number: int
+    preview_link: str
+    rank: int
+    replaygain_track_peak: int
+    release_date: datetime
+    title: str
+    title_short: str
+    md5_origin: Optional[str]
+    media_version: Optional[str]
+    composer: Optional[str]
+    author: Optional[List[str]]
 
     def __new__(cls, track_id: int):
         """
@@ -149,10 +209,10 @@ class Track:
 
         Args:
             track_id: The Deezer album ID.
+
         """
         if track_id not in cls._cache.keys():
-            track = super(Track, cls).__new__(cls)
-            cls._cache[track_id] = track
+            cls._cache[track_id] = super(Track, cls).__new__(cls)
         return cls._cache[track_id]
 
     def __init__(self, track_id: int):
@@ -164,6 +224,7 @@ class Track:
 
         Raises:
             DeezerApiError: The Deezer API request replied with an error.
+
         """
         r = requests.get(f"https://api.deezer.com/track/{track_id}").json()
         if "error" in r:
@@ -172,89 +233,21 @@ class Track:
                                         r["error"]["code"])
 
         self.album_id: int = r["album"]["id"]
-        """The Deezer album ID to which the track belongs."""
-
-        self.artist: str = r["artist"]["name"]
-        """The main artist of the track."""
-
-        self.artists: List[str] = [artist["name"] for artist in r['contributors']]
-        """A list of artists featured in the track."""
-
-        self.bpm: int = r["bpm"]
-        """Beats per minute of the track."""
-
-        self.disk_number: int = r["disk_number"]
-        """The disc number of the track."""
-
-        self.duration: int = r["duration"]
-        """The duration of the track."""
-
-        self.id: int = r["id"]
-        """The Deezer ID of the track."""
-
-        self.isrc: str = r["isrc"]
-        """The International Standard Recording Code (ISRC) of the track."""
-
-        self.link: str = r["link"]
-        """The Deezer link of the track."""
-
-        self.number: int = r["track_position"]
-        """The position of the track."""
-
-        self.preview_link: str = r["preview"]
-        """The link to a 30 second preview of the track."""
-
-        self.rank: int = r["rank"]
-        """The rank of the track on Deezer"""
-
-        self.replaygain_track_peak: int = r["gain"]
-        """The Replay Gain value of the track."""
-
-        self.release_date: datetime = datetime.strptime(r["release_date"], "%Y-%m-%d")
-        """The release date of the track."""
-
-        self.title: str = r["title"]
-        """The title of the track."""
-
-        self.title_short: str = r["title_short"]
-        """The short title of the track."""
-
-        self.md5_origin: Optional[str] = None
-        """
-        The md5 origin of the track.
-
-        Info:
-            This attribute is only set after
-            [add_more_tags()][deethon.types.Track.add_more_tags] is
-            called. Defaults to `None`.
-        """
-        self.media_version: Optional[str] = None
-        """
-        The media version of the track.
-
-        Info:
-            This attribute is only set after
-            [add_more_tags()][deethon.types.Track.add_more_tags] is
-            called. Defaults to `None`.
-        """
-        self.composer: Optional[str] = None
-        """
-        The author of the track.
-
-        Info:
-            This attribute is only set after
-            [add_more_tags()][deethon.types.Track.add_more_tags] is
-            called. Defaults to `None`.
-        """
-        self.author: Optional[List[str]] = None
-        """
-        A list of one or more authors of the track.
-
-        Info:
-            This attribute is only set after
-            [add_more_tags()][deethon.types.Track.add_more_tags] is
-            called. Defaults to `None`.
-        """
+        self.artist = r["artist"]["name"]
+        self.artists = [artist["name"] for artist in r['contributors']]
+        self.bpm = r["bpm"]
+        self.disk_number = r["disk_number"]
+        self.duration = r["duration"]
+        self.id = r["id"]
+        self.isrc = r["isrc"]
+        self.link = r["link"]
+        self.number = r["track_position"]
+        self.preview_link = r["preview"]
+        self.rank = r["rank"]
+        self.replaygain_track_peak = r["gain"]
+        self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        self.title = r["title"]
+        self.title_short = r["title_short"]
 
     @property
     def album(self) -> Album:
@@ -268,6 +261,7 @@ class Track:
         Args:
             session: A [Session][deethon.session.Session] object is required to connect
                 to the Deezer API.
+
         """
         r = session.get_api(
             consts.METHOD_GET_TRACK, session.csrf_token, {"sng_id": self.id}
