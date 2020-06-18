@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-### Changes
+## [0.4.2] - 2020-06-18
+### Changed
 - Return absolute file path (c6825373bbdc6f4fb0dd3b3dc9e5191d7ac6e1d1).
+
+### Fixed
+- Forbidden file name characters on Windows were not escaped
+(487393e808b4e6152cb3cf73612451d74a1b8446). 
 
 ## [0.4.1] - 2020-06-08
 ### Added
@@ -14,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 (ffe271ee159972ff6969dd9ebccb0b55c0864e12).
 - `pytest-cov` in dev-dependencies (56da09d2d385a82c91da0d2011e4cbb7e4244d2d).
 
-### Changes
+### Changed
 - Exclude python files from `.editorconfig` as it causes code style errors
 (88e7708218e99ed8cd21bacf07fdc9a1cce68371).
 
@@ -82,7 +86,8 @@ is not found (04580121bade63f8079d05142817ebaa8649bee2).
 ### Added
 - Initial release! 🎉
 
-[Unreleased]: https://github.com/deethon/deethon/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/deethon/deethon/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/deethon/deethon/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/deethon/deethon/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/deethon/deethon/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/deethon/deethon/compare/v0.3.2...v0.3.3
