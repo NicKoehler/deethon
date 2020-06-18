@@ -1,4 +1,4 @@
-.md-typeset__table p {
+.md-typeset__table td > p {
   margin: 0;
 }
 
