@@ -1,3 +1,8 @@
+"""
+🎵 Deethon is a Python3 library to easily download music from Deezer and a
+wrapper for the Deezer API with some extra features. 🎵
+"""
+
 try:
     from importlib import metadata
 except ImportError:  # for Python<3.8
