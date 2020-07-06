@@ -49,7 +49,7 @@ def get_file_path(track: Track, ext: str) -> Path:
     std_dir = "Songs"
     dir_path = Path(std_dir, album_artist, album_title)
     dir_path.mkdir(parents=True, exist_ok=True)
-    file_name = f"{track.number} - {track.title}{ext}"
+    file_name = f"{track.number:02} {track.title}{ext}"
     return dir_path / file_name.translate(forbidden_chars)
 
 
@@ -112,10 +112,12 @@ def tag(file_path: Path, track: Track) -> None:
 
     if ext == ".mp3":
         tags = ID3()
+        tags.clear()
 
         tags.add(Frames["TALB"](encoding=3, text=track.album.title))
         tags.add(Frames["TBPM"](encoding=3, text=str(track.bpm)))
         tags.add(Frames["TCON"](encoding=3, text=track.album.genres))
+        tags.add(Frames["TCOP"](encoding=3, text=track.copyright))
         tags.add(Frames["TDAT"](encoding=3,
                                 text=track.release_date.strftime("%d%m")))
         tags.add(Frames["TIT2"](encoding=3, text=track.title))
@@ -129,8 +131,12 @@ def tag(file_path: Path, track: Track) -> None:
         tags.add(Frames["TYER"](encoding=3, text=str(track.release_date.year)))
 
         tags.add(Frames["TXXX"](encoding=3,
-                                desc="replaygain_track_peak",
-                                text=str(track.replaygain_track_peak)))
+                                desc="replaygain_track_gain",
+                                text=str(track.replaygain_track_gain)))
+
+        if track.lyrics:
+            tags.add(Frames["USLT"](encoding=3,
+                                    text=track.lyrics))
 
         tags.add(Frames["APIC"](encoding=3,
                                 mime="image/jpeg",
@@ -142,15 +148,21 @@ def tag(file_path: Path, track: Track) -> None:
 
     else:
         tags = FLAC(file_path)
+        tags.clear()
         tags["album"] = track.album.title
         tags["albumartist"] = track.album.artist
         tags["artist"] = track.artist
         tags["bpm"] = str(track.bpm)
+        tags["copyright"] = track.copyright
+        tags["date"] = track.release_date.strftime("%Y-%m-%d")
         tags["genre"] = track.album.genres
         tags["isrc"] = track.isrc
-        tags["replaygain_track_peak"] = str(track.replaygain_track_peak)
+        if track.lyrics:
+            tags["lyrics"] = track.lyrics
+        tags["replaygain_track_gain"] = str(track.replaygain_track_gain)
         tags["title"] = track.title
         tags["tracknumber"] = str(track.number)
+        tags["year"] = str(track.release_date.year)
 
         cover = Picture()
         cover.type = 3
@@ -159,4 +171,4 @@ def tag(file_path: Path, track: Track) -> None:
         cover.height = 1000
         tags.clear_pictures()
         tags.add_picture(cover)
-        tags.save()
+        tags.save(deleteid3=True)

@@ -13,3 +13,9 @@ METHOD_GET_USER: str = "deezer.getUserData"
 
 METHOD_GET_TRACK: str = "song.getData"
 """The `song.getData` method for the Deezer API request."""
+
+METHOD_GET_LYRICS: str = "song.getLyrics"
+"""The `song.getLyrics` method for the Deezer API request."""
+
+METHOD_PAGE_TRACK: str = "deezer.pageTrack"
+"""The `deezer.pageTrack` method for the Deezer API request."""

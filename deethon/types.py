@@ -162,7 +162,7 @@ class Track:
         number: The position of the track.
         preview_link: The link to a 30 second preview of the track.
         rank: The rank of the track on Deezer
-        replaygain_track_peak: The Replay Gain value of the track.
+        replaygain_track_gain: The Replay Gain value of the track.
         release_date: The release date of the track.
         title: The title of the track.
         title_short: The short title of the track.
@@ -171,11 +171,16 @@ class Track:
         media_version: The media version of the track.
         composer: The author of the track.
         author: A list of one or more authors of the track.
+        lyrics: The lyrics of the track.
+        lyrics_sync: The synchronized lyrics of the track.
+        lyrics_copyrights: Copyright information of the lyrics.
+        lyrics_writers: A list of writers of the lyrics.
 
     !!! Info
-        `md5_origin`, `media_version`, `composer` and `author` are only set after
-        [add_more_tags()][deethon.types.Track.add_more_tags] is
-        called. Defaults to `None`.
+        `md5_origin`, `media_version`, `composer`, `author` and all
+        `lyrics*` tags are only set after
+        [add_more_tags()][deethon.types.Track.add_more_tags] is called.
+        Defaults to `None`.
     """
 
     _cache: ClassVar[Dict[int, Track]] = {}
@@ -192,14 +197,20 @@ class Track:
     number: int
     preview_link: str
     rank: int
-    replaygain_track_peak: int
+    replaygain_track_gain: str
     release_date: datetime
     title: str
     title_short: str
+
     md5_origin: Optional[str]
     media_version: Optional[str]
-    composer: Optional[str]
+    composer: Optional[List[str]]
     author: Optional[List[str]]
+    copyright: Optional[str]
+    lyrics: Optional[str]
+    lyrics_sync: Optional[List[Dict[str, str]]]
+    lyrics_copyrights: Optional[str]
+    lyrics_writers: Optional[List[str]]
 
     def __new__(cls, track_id: int):
         """
@@ -244,7 +255,7 @@ class Track:
         self.number = r["track_position"]
         self.preview_link = r["preview"]
         self.rank = r["rank"]
-        self.replaygain_track_peak = r["gain"]
+        self.replaygain_track_gain = f"{((r['gain'] + 18.4) * -1):.2f} dB"
         self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
         self.title = r["title"]
         self.title_short = r["title_short"]
@@ -264,9 +275,21 @@ class Track:
 
         """
         r = session.get_api(
-            consts.METHOD_GET_TRACK, session.csrf_token, {"sng_id": self.id}
+            consts.METHOD_PAGE_TRACK, session.csrf_token, {"sng_id": self.id}
         )
-        self.md5_origin = r["MD5_ORIGIN"]
-        self.media_version = r["MEDIA_VERSION"]
-        self.composer = r["SNG_CONTRIBUTORS"].get("composer")
-        self.author = r["SNG_CONTRIBUTORS"].get("author")
+        self.md5_origin = r["DATA"]["MD5_ORIGIN"]
+        self.media_version = r["DATA"]["MEDIA_VERSION"]
+        self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
+        self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
+        self.copyright = r["DATA"]["COPYRIGHT"]
+
+        if "LYRICS" in r.keys():
+            self.lyrics = r["LYRICS"].get('LYRICS_TEXT')
+            self.lyrics_sync = r["LYRICS"].get('LYRICS_SYNC_JSON')
+            self.lyrics_copyrights = r["LYRICS"].get('LYRICS_COPYRIGHTS')
+            self.lyrics_writers = r["LYRICS"].get('LYRICS_WRITERS').split(', ')
+        else:
+            self.lyrics = None
+            self.lyrics_sync = None
+            self.lyrics_copyrights = None
+            self.lyrics_writers = None
