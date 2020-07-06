@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://deethon.github.io/deethon/reference/utils/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.3.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
 <title>utils.py - Deethon Docs</title>
-<link href="../../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
 <meta content="#ef5350" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -490,7 +490,7 @@ get_file_path<span class="p">(</span><span class="n">track</span><span class="p"
     <span class="n">std_dir</span> <span class="o">=</span> <span class="s2">"Songs"</span>
     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">std_dir</span><span class="p">,</span> <span class="n">album_artist</span><span class="p">,</span> <span class="n">album_title</span><span class="p">)</span>
     <span class="n">dir_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">title</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">number</span><span class="si">:</span><span class="s2">02</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">track</span><span class="o">.</span><span class="n">title</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">return</span> <span class="n">dir_path</span> <span class="o">/</span> <span class="n">file_name</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">forbidden_chars</span><span class="p">)</span>
 </code></pre>
 </div>
@@ -716,7 +716,19 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 159
 160
 161
-162</pre>
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</pre>
 </div>
 </td>
 <td class="code">
@@ -734,10 +746,12 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 
     <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">".mp3"</span><span class="p">:</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="n">ID3</span><span class="p">()</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TALB"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">title</span><span class="p">))</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TBPM"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">bpm</span><span class="p">)))</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TCON"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">genres</span><span class="p">))</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TCOP"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">copyright</span><span class="p">))</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TDAT"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                                 <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2">%m"</span><span class="p">)))</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TIT2"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">title</span><span class="p">))</span>
@@ -751,8 +765,12 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TYER"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">year</span><span class="p">)))</span>
 
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"TXXX"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                <span class="n">desc</span><span class="o">=</span><span class="s2">"replaygain_track_peak"</span><span class="p">,</span>
-                                <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">replaygain_track_peak</span><span class="p">)))</span>
+                                <span class="n">desc</span><span class="o">=</span><span class="s2">"replaygain_track_gain"</span><span class="p">,</span>
+                                <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">replaygain_track_gain</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">lyrics</span><span class="p">:</span>
+            <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"USLT"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                    <span class="n">text</span><span class="o">=</span><span class="n">track</span><span class="o">.</span><span class="n">lyrics</span><span class="p">))</span>
 
         <span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Frames</span><span class="p">[</span><span class="s2">"APIC"</span><span class="p">](</span><span class="n">encoding</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                                 <span class="n">mime</span><span class="o">=</span><span class="s2">"image/jpeg"</span><span class="p">,</span>
@@ -764,15 +782,21 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">tags</span> <span class="o">=</span> <span class="n">FLAC</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"album"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">title</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"albumartist"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">artist</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"artist"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">artist</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"bpm"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">bpm</span><span class="p">)</span>
+        <span class="n">tags</span><span class="p">[</span><span class="s2">"copyright"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copyright</span>
+        <span class="n">tags</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"genre"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">album</span><span class="o">.</span><span class="n">genres</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"isrc"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">isrc</span>
-        <span class="n">tags</span><span class="p">[</span><span class="s2">"replaygain_track_peak"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">replaygain_track_peak</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">lyrics</span><span class="p">:</span>
+            <span class="n">tags</span><span class="p">[</span><span class="s2">"lyrics"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">lyrics</span>
+        <span class="n">tags</span><span class="p">[</span><span class="s2">"replaygain_track_gain"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">replaygain_track_gain</span><span class="p">)</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">title</span>
         <span class="n">tags</span><span class="p">[</span><span class="s2">"tracknumber"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+        <span class="n">tags</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
 
         <span class="n">cover</span> <span class="o">=</span> <span class="n">Picture</span><span class="p">()</span>
         <span class="n">cover</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="mi">3</span>
@@ -781,7 +805,7 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
         <span class="n">cover</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">1000</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">clear_pictures</span><span class="p">()</span>
         <span class="n">tags</span><span class="o">.</span><span class="n">add_picture</span><span class="p">(</span><span class="n">cover</span><span class="p">)</span>
-        <span class="n">tags</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">deleteid3</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -850,13 +874,13 @@ tag<span class="p">(</span><span class="n">file_path</span><span class="p">,</sp
 </footer>
 </div>
 <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

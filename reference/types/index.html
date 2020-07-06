@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://deethon.github.io/deethon/reference/types/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.3.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
 <title>types.py - Deethon Docs</title>
-<link href="../../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
 <meta content="#ef5350" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -893,8 +893,8 @@ instance is created.</p>
 </td>
 </tr>
 <tr>
-<td><code>replaygain_track_peak</code></td>
-<td><code>int</code></td>
+<td><code>replaygain_track_gain</code></td>
+<td><code>str</code></td>
 <td>
 <p>The Replay Gain value of the track.</p>
 </td>
@@ -936,7 +936,7 @@ instance is created.</p>
 </tr>
 <tr>
 <td><code>composer</code></td>
-<td><code>Optional[str]</code></td>
+<td><code>Optional[List[str]]</code></td>
 <td>
 <p>The author of the track.</p>
 </td>
@@ -948,13 +948,42 @@ instance is created.</p>
 <p>A list of one or more authors of the track.</p>
 </td>
 </tr>
+<tr>
+<td><code>lyrics</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>The lyrics of the track.</p>
+</td>
+</tr>
+<tr>
+<td><code>lyrics_sync</code></td>
+<td><code>Optional[List[Dict[str, str]]]</code></td>
+<td>
+<p>The synchronized lyrics of the track.</p>
+</td>
+</tr>
+<tr>
+<td><code>lyrics_copyrights</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>Copyright information of the lyrics.</p>
+</td>
+</tr>
+<tr>
+<td><code>lyrics_writers</code></td>
+<td><code>Optional[List[str]]</code></td>
+<td>
+<p>A list of writers of the lyrics.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p><code>md5_origin</code>, <code>media_version</code>, <code>composer</code> and <code>author</code> are only set after
-<a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is
-called. Defaults to <code>None</code>.</p>
+<p><code>md5_origin</code>, <code>media_version</code>, <code>composer</code>, <code>author</code> and all
+<code>lyrics*</code> tags are only set after
+<a href="https://deethon.github.io/deethon/reference/types/#deethon.types.Track.add_more_tags">add_more_tags()</a> is called.
+Defaults to <code>None</code>.</p>
 </div>
 <div class="doc doc-children">
 <div class="doc doc-object doc-attribute">
@@ -1024,18 +1053,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
+<pre><span></span>229
 230
 231
 232
@@ -1056,7 +1074,18 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 247
 248
 249
-250</pre>
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261</pre>
 </div>
 </td>
 <td class="code">
@@ -1090,7 +1119,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"track_position"</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preview_link</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"preview"</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"rank"</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">replaygain_track_peak</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"gain"</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">replaygain_track_gain</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="p">((</span><span class="n">r</span><span class="p">[</span><span class="s1">'gain'</span><span class="p">]</span> <span class="o">+</span> <span class="mf">18.4</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dB"</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">release_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"release_date"</span><span class="p">],</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">title_short</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"title_short"</span><span class="p">]</span>
@@ -1142,19 +1171,19 @@ instance is created and cached.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216</pre>
+<pre><span></span>215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</pre>
 </div>
 </td>
 <td class="code">
@@ -1215,22 +1244,34 @@ to the Deezer API.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
+<pre><span></span>268
 269
 270
 271
-272</pre>
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295</pre>
 </div>
 </td>
 <td class="code">
@@ -1245,12 +1286,24 @@ to the Deezer API.</p>
 
 <span class="sd">    """</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_api</span><span class="p">(</span>
-        <span class="n">consts</span><span class="o">.</span><span class="n">METHOD_GET_TRACK</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">csrf_token</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sng_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
+        <span class="n">consts</span><span class="o">.</span><span class="n">METHOD_PAGE_TRACK</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">csrf_token</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sng_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">md5_origin</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"MD5_ORIGIN"</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">media_version</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"MEDIA_VERSION"</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">composer</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"composer"</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"author"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">md5_origin</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"MD5_ORIGIN"</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">media_version</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"MEDIA_VERSION"</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">composer</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"composer"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"SNG_CONTRIBUTORS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"author"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copyright</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"COPYRIGHT"</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s2">"LYRICS"</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"LYRICS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LYRICS_TEXT'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_sync</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"LYRICS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LYRICS_SYNC_JSON'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_copyrights</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"LYRICS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LYRICS_COPYRIGHTS'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_writers</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"LYRICS"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LYRICS_WRITERS'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_sync</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_copyrights</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lyrics_writers</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre>
 </div>
 </td>
@@ -1322,13 +1375,13 @@ to the Deezer API.</p>
 </footer>
 </div>
 <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.7a2ea5ba.min.js"
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
