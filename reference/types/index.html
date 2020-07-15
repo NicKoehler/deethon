@@ -628,7 +628,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\types.py</code></summary>
+<summary>Source code in <code>deethon/types.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -746,7 +746,7 @@ instance is created.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\types.py</code></summary>
+<summary>Source code in <code>deethon/types.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -1048,7 +1048,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\types.py</code></summary>
+<summary>Source code in <code>deethon/types.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -1166,7 +1166,7 @@ instance is created and cached.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\types.py</code></summary>
+<summary>Source code in <code>deethon/types.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -1239,7 +1239,7 @@ to the Deezer API.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\types.py</code></summary>
+<summary>Source code in <code>deethon/types.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -1286,7 +1286,7 @@ to the Deezer API.</p>
 
 <span class="sd">    """</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_api</span><span class="p">(</span>
-        <span class="n">consts</span><span class="o">.</span><span class="n">METHOD_PAGE_TRACK</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">csrf_token</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sng_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
+        <span class="n">consts</span><span class="o">.</span><span class="n">METHOD_PAGE_TRACK</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sng_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
     <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">md5_origin</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"MD5_ORIGIN"</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">media_version</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">"DATA"</span><span class="p">][</span><span class="s2">"MEDIA_VERSION"</span><span class="p">]</span>

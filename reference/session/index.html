@@ -351,13 +351,12 @@ on Deezer's unofficial API</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\session.py</code></summary>
+<summary>Source code in <code>deethon/session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>14
-15
+<pre><span></span>15
 16
 17
 18
@@ -372,8 +371,7 @@ on Deezer's unofficial API</p>
 27
 28
 29
-30
-31</pre>
+30</pre>
 </div>
 </td>
 <td class="code">
@@ -392,10 +390,8 @@ on Deezer's unofficial API</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">_arl_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">arl_token</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_req</span><span class="o">.</span><span class="n">cookies</span><span class="p">[</span><span class="s2">"arl"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arl_token</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_api</span><span class="p">(</span><span class="n">consts</span><span class="o">.</span><span class="n">METHOD_GET_USER</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s2">"USER"</span><span class="p">][</span><span class="s2">"USER_ID"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">DeezerLoginError</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_csrf_token</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">"checkForm"</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_csrf_token</span> <span class="o">=</span> <span class="s2">"null"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_session_expires</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre>
 </div>
 </td>
@@ -475,22 +471,12 @@ supported for download.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\session.py</code></summary>
+<summary>Source code in <code>deethon/session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
+<pre><span></span>56
 57
 58
 59
@@ -509,7 +495,17 @@ supported for download.</p>
 72
 73
 74
-75</pre>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
 </div>
 </td>
 <td class="code">
@@ -617,22 +613,12 @@ that contains the file paths.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\session.py</code></summary>
+<summary>Source code in <code>deethon/session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
+<pre><span></span>139
 140
 141
 142
@@ -646,7 +632,17 @@ that contains the file paths.</p>
 150
 151
 152
-153</pre>
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</pre>
 </div>
 </td>
 <td class="code">
@@ -765,22 +761,12 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>deethon\session.py</code></summary>
+<summary>Source code in <code>deethon/session.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
+<pre><span></span> 87
  88
  89
  90
@@ -820,7 +806,17 @@ download_track<span class="p">(</span><span class="bp">self</span><span class="p
 124
 125
 126
-127</pre>
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</pre>
 </div>
 </td>
 <td class="code">
