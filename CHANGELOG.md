@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2020-07-15
+### Added
+- Additional tags to the track object and the downloaded tracks (lyrics, copyright, etc.) (880511be8726b80333c67f9280f80b654a7f7106).
+
+### Fixed
+- The session on Deezer will not be renewed after the expiration (a82cb4a910d5ab195791d0789a0e6811d2548824).
+- The ReplayGain tag had a wrong value (880511be8726b80333c67f9280f80b654a7f7106).
+
 ## [0.4.2] - 2020-06-18
 ### Changed
 - Return absolute file path (c6825373bbdc6f4fb0dd3b3dc9e5191d7ac6e1d1).
@@ -86,7 +94,8 @@ is not found (04580121bade63f8079d05142817ebaa8649bee2).
 ### Added
 - Initial release! 🎉
 
-[Unreleased]: https://github.com/deethon/deethon/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/deethon/deethon/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/deethon/deethon/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/deethon/deethon/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/deethon/deethon/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/deethon/deethon/compare/v0.3.3...v0.4.0
