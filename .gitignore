@@ -1,14 +1,21 @@
+# Python
 __pycache__/
-.vscode/
-.idea/
-.tox/
+.pytest_cache/
+*.egg-info/
+pip-wheel-metadata/
+*.pyc
+
+# Docs
 build/
 dist/
 site/
-Songs/
-*.egg-info/
-pip-wheel-metadata/
-*.cmd
+
+# IDEs
+.vscode/
+.idea/
+
+# Other
 coverage.xml
 .coverage
 README.rst
+Songs/

@@ -1,4 +1,5 @@
 """This module contains the Session class."""
+import time
 import re
 from pathlib import Path
 from typing import Union, Generator, Any, Tuple, Optional, Callable
@@ -25,15 +26,24 @@ class Session:
         self._arl_token: str = arl_token
         self._req = requests.Session()
         self._req.cookies["arl"] = self._arl_token
+        self._csrf_token = "null"
+        self._session_expires = 0
+
+    def _refresh_session(self) -> None:
         user = self.get_api(consts.METHOD_GET_USER)
         if user["USER"]["USER_ID"] == 0:
             raise errors.DeezerLoginError
         self._csrf_token = user["checkForm"]
+        self._session_expires = time.time() + 3600
 
-    def get_api(self, method: str, api_token="null", json=None) -> dict:
+    def get_api(self, method: str, json=None) -> dict:
+        if not method == consts.METHOD_GET_USER and \
+                (self._csrf_token == "null" or self._session_expires > time.time()):
+            self._refresh_session()
+
         params = {
             "api_version": "1.0",
-            "api_token": api_token,
+            "api_token": self._csrf_token,
             "input": "3",
             "method": method,
         }
@@ -151,7 +161,3 @@ class Session:
         if stream:
             return tracks
         return tuple(tracks)
-
-    @property
-    def csrf_token(self):
-        return self._csrf_token

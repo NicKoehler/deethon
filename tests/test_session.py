@@ -13,7 +13,8 @@ def test_session():
     arl token is passed.
     """
     with pytest.raises(deethon.errors.DeezerLoginError):
-        deethon.Session('wrongarltoken')
+        session = deethon.Session('wrongarltoken')
+        session._refresh_session()
 
 
 def test_download():

@@ -275,7 +275,7 @@ class Track:
 
         """
         r = session.get_api(
-            consts.METHOD_PAGE_TRACK, session.csrf_token, {"sng_id": self.id}
+            consts.METHOD_PAGE_TRACK, {"sng_id": self.id}
         )
         self.md5_origin = r["DATA"]["MD5_ORIGIN"]
         self.media_version = r["DATA"]["MEDIA_VERSION"]
