@@ -281,8 +281,8 @@ class Track:
         self.media_version = r["DATA"]["MEDIA_VERSION"]
 
         if isinstance(r["DATA"]["SNG_CONTRIBUTORS"], list):
-            self.composer = ', '.join(i.get("composer") for i in r["DATA"]["SNG_CONTRIBUTORS"])
-            self.author = ', '.join(i.get("author") for i in r["DATA"]["SNG_CONTRIBUTORS"])
+            self.composer = None
+            self.author = None
         else:
             self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
             self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
