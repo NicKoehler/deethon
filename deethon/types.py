@@ -322,11 +322,11 @@ class Playlist:
 
     def __new__(cls, playlist_id: int):
         """
-        If an album instance with the specified album ID already exists,
-        this method returns the cached instance, otherwise a new album
+        If an playlist instance with the specified playlist ID already exists,
+        this method returns the cached instance, otherwise a new playlist
         instance is created.
         Args:
-            playlist_id: The Deezer album ID.
+            playlist_id: The Deezer playlist ID.
         """
         if playlist_id not in cls._cache.keys():
             cls._cache[playlist_id] = super(Playlist, cls).__new__(cls)
@@ -334,9 +334,9 @@ class Playlist:
 
     def __init__(self, playlist_id: int):
         """
-        Create a new album instance with the specified album ID.
+        Create a new playlist instance with the specified playlist ID.
         Args:
-            album_id: The Deezer album ID.
+            playlist_id: The Deezer playlist ID.
         Raises:
             DeezerApiError: The Deezer API request replied with an error.
         """
