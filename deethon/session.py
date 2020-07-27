@@ -168,7 +168,7 @@ class Session:
             tracks.append(res)
 
         if stream:
-            return (i for i in tracks)
+            return tracks
         return tuple(tracks)
 
     def download_playlist(
@@ -202,5 +202,5 @@ class Session:
             tracks.append(res)
 
         if stream:
-            return (i for i in tracks)
+            return tracks
         return tuple(tracks)
