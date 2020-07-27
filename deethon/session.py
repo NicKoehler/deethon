@@ -119,7 +119,7 @@ class Session:
             elif bitrate == "MP3_256":
                 fallback_bitrate = "MP3_128"
             else:
-                raise errors.DownloadError(track.id)
+                return None
             return self.download_track(track, fallback_bitrate, progress_callback)
         current = 0
 
@@ -158,14 +158,8 @@ class Session:
             The file paths.
         """
 
-        tracks = []
-
-        for track in album.tracks:
-            try:
-                res = self.download_track(track, bitrate)
-            except errors.DownloadError:
-                res = None
-            tracks.append(res)
+        tracks = (self.download_track(track, bitrate)
+            for track in album.tracks)
 
         if stream:
             return tracks
@@ -192,14 +186,8 @@ class Session:
             The file paths.
         """
 
-        tracks = []
-
-        for track in playlist.tracks:
-            try:
-                res = self.download_track(track, bitrate)
-            except errors.DownloadError:
-                res = None
-            tracks.append(res)
+        tracks = (self.download_track(track, bitrate)
+            for track in playlist.tracks)
 
         if stream:
             return tracks
