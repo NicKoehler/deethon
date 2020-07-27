@@ -279,14 +279,8 @@ class Track:
         )
         self.md5_origin = r["DATA"]["MD5_ORIGIN"]
         self.media_version = r["DATA"]["MEDIA_VERSION"]
-
-        if isinstance(r["DATA"]["SNG_CONTRIBUTORS"], list):
-            self.composer = None
-            self.author = None
-        else:
-            self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
-            self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
-
+        self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
+        self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
         self.copyright = r["DATA"]["COPYRIGHT"]
 
         if "LYRICS" in r.keys():
@@ -299,3 +293,122 @@ class Track:
             self.lyrics_sync = None
             self.lyrics_copyrights = None
             self.lyrics_writers = None
+
+
+class Playlist:
+
+    _cache: ClassVar[Dict[int, Playlist]] = {}
+
+    id: int
+    title: str
+    description: str
+    duration: int
+    public: bool
+    is_loved_track:	bool
+    collaborative: bool
+    rating:	int
+    nb_tracks: int
+    unseen_track_count: int
+    fans: int
+    link: str
+    share: str
+    picture: str
+    checksum: str
+
+    _picture_small: Optional[bytes] = None
+    _picture_medium: Optional[bytes] = None
+    _picture_big: Optional[bytes] = None
+    _picture_xl: Optional[bytes] = None
+
+    def __new__(cls, playlist_id: int):
+        """
+        If an album instance with the specified album ID already exists,
+        this method returns the cached instance, otherwise a new album
+        instance is created.
+        Args:
+            playlist_id: The Deezer album ID.
+        """
+        if playlist_id not in cls._cache.keys():
+            cls._cache[playlist_id] = super(Playlist, cls).__new__(cls)
+        return cls._cache[playlist_id]
+
+    def __init__(self, playlist_id: int):
+        """
+        Create a new album instance with the specified album ID.
+        Args:
+            album_id: The Deezer album ID.
+        Raises:
+            DeezerApiError: The Deezer API request replied with an error.
+        """
+        r = requests.get(f"https://api.deezer.com/playlist/{playlist_id}").json()
+        if "error" in r:
+            raise errors.DeezerApiError(r["error"]["type"],
+                                        r["error"]["message"],
+                                        r["error"]["code"])
+
+        self.id = r['id']
+        self.title = r['title']
+        self.description = r['description']
+        self.duration = r['duration']
+        self.public = r['public']
+        self.is_loved_track = r['is_loved_track']
+        self.collaborative = r['collaborative']
+        self.nb_tracks = r['nb_tracks']
+        self.link = r['link']
+        self.share = r['share']
+        self.picture = r['picture']
+        self.picture_small_link = r['picture_small']
+        self.picture_medium_link = r['picture_medium']
+        self.picture_big_link = r['picture_big']
+        self.picture_xl_link = r['picture_xl']
+        self.checksum = r['checksum']
+
+    def basic_tracks_data(self):
+
+        r = requests.get(
+            f"https://api.deezer.com/playlist/{self.id}/tracks").json()
+
+        temp = r['data']
+
+        while 'next' in r:
+            r = requests.get(r['next']).json()
+            temp += r['data']
+
+        return temp
+
+    @property
+    def picture_small(self) -> bytes:
+        """The album picture in small size."""
+        if not self._picture_small:
+            self._picture_small = requests.get(self.picture_small_link).content
+        return self._picture_small
+
+    @property
+    def picture_medium(self) -> bytes:
+        """The album picture in medium size."""
+        if not self._picture_medium:
+            self._picture_medium = requests.get(
+                self.picture_medium_link).content
+        return self._picture_medium
+
+    @property
+    def picture_big(self) -> bytes:
+        """The album picture in big size."""
+        if not self._picture_big:
+            self._picture_big = requests.get(self.picture_big_link).content
+        return self._picture_big
+
+    @property
+    def picture_xl(self) -> bytes:
+        """The album picture in xl size."""
+        if not self._picture_xl:
+            self._picture_xl = requests.get(self.picture_xl_link).content
+        return self._picture_xl
+
+    @property
+    def tracks(self) -> list:
+        """
+        A list of [Track][deethon.types.Track] objects for each
+        track in the album.
+        """
+        return [Track(x["id"]) for x in self.basic_tracks_data()]

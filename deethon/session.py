@@ -72,7 +72,8 @@ class Session:
                 supported for download.
             InvalidUrlError: The specified URL is not a valid deezer link.
         """
-        match = re.match(r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
+        match = re.match(
+            r"https?://(?:www\.)?deezer\.com/(?:\w+/)?(\w+)/(\d+)", url)
         if match:
             mode = match.group(1)
             content_id = int(match.group(2))
@@ -156,8 +157,50 @@ class Session:
         Returns:
             The file paths.
         """
-        tracks = (self.download_track(track, bitrate)
-                  for track in album.tracks)
+
+        tracks = []
+
+        for track in album.tracks:
+            try:
+                res = self.download_track(track, bitrate)
+            except errors.DownloadError:
+                res = None
+            tracks.append(res)
+
         if stream:
-            return tracks
+            return (i for i in tracks)
+        return tuple(tracks)
+
+    def download_playlist(
+            self,
+            playlist: types.Playlist,
+            bitrate: str = None,
+            stream: bool = False
+    ) -> Union[Generator[Path, Any, None], Tuple[Path, ...]]:
+        """
+        Downloads an album from Deezer using the specified Album object.
+
+        Args:
+            album: An [Album][deethon.types.Album] instance.
+            bitrate: The preferred bitrate to download
+                (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
+            stream: If `true`, this method returns a generator object,
+                otherwise the downloaded files are returned as a tuple
+                that contains the file paths.
+
+        Returns:
+            The file paths.
+        """
+
+        tracks = []
+
+        for track in playlist.tracks:
+            try:
+                res = self.download_track(track, bitrate)
+            except errors.DownloadError:
+                res = None
+            tracks.append(res)
+
+        if stream:
+            return (i for i in tracks)
         return tuple(tracks)
