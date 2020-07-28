@@ -279,8 +279,12 @@ class Track:
         )
         self.md5_origin = r["DATA"]["MD5_ORIGIN"]
         self.media_version = r["DATA"]["MEDIA_VERSION"]
-        self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
-        self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
+        if isinstance(r["DATA"]["SNG_CONTRIBUTORS"], list):
+            self.composer = None
+            self.author = None
+        else:
+            self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
+            self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
         self.copyright = r["DATA"]["COPYRIGHT"]
 
         if "LYRICS" in r.keys():
