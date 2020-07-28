@@ -311,7 +311,7 @@ class Playlist:
     is_loved_track:	bool
     collaborative: bool
     rating:	int
-    nb_tracks: int
+    total_tracks: int
     unseen_track_count: int
     fans: int
     link: str
@@ -357,7 +357,7 @@ class Playlist:
         self.public = r['public']
         self.is_loved_track = r['is_loved_track']
         self.collaborative = r['collaborative']
-        self.nb_tracks = r['nb_tracks']
+        self.total_tracks = r['nb_tracks']
         self.link = r['link']
         self.share = r['share']
         self.picture = r['picture']
