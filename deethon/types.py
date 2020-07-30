@@ -277,26 +277,27 @@ class Track:
         r = session.get_api(
             consts.METHOD_PAGE_TRACK, {"sng_id": self.id}
         )
-        self.md5_origin = r["DATA"]["MD5_ORIGIN"]
-        self.media_version = r["DATA"]["MEDIA_VERSION"]
-        if isinstance(r["DATA"]["SNG_CONTRIBUTORS"], list):
-            self.composer = None
-            self.author = None
-        else:
-            self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
-            self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
-        self.copyright = r["DATA"]["COPYRIGHT"]
+        if 'DATA' in r:
+            self.md5_origin = r["DATA"]["MD5_ORIGIN"]
+            self.media_version = r["DATA"]["MEDIA_VERSION"]
+            if isinstance(r["DATA"]["SNG_CONTRIBUTORS"], list):
+                self.composer = None
+                self.author = None
+            else:
+                self.composer = r["DATA"]["SNG_CONTRIBUTORS"].get("composer")
+                self.author = r["DATA"]["SNG_CONTRIBUTORS"].get("author")
+            self.copyright = r["DATA"]["COPYRIGHT"]
 
-        if "LYRICS" in r.keys():
-            self.lyrics = r["LYRICS"].get('LYRICS_TEXT')
-            self.lyrics_sync = r["LYRICS"].get('LYRICS_SYNC_JSON')
-            self.lyrics_copyrights = r["LYRICS"].get('LYRICS_COPYRIGHTS')
-            self.lyrics_writers = r["LYRICS"].get('LYRICS_WRITERS').split(', ')
-        else:
-            self.lyrics = None
-            self.lyrics_sync = None
-            self.lyrics_copyrights = None
-            self.lyrics_writers = None
+            if "LYRICS" in r.keys():
+                self.lyrics = r["LYRICS"].get('LYRICS_TEXT')
+                self.lyrics_sync = r["LYRICS"].get('LYRICS_SYNC_JSON')
+                self.lyrics_copyrights = r["LYRICS"].get('LYRICS_COPYRIGHTS')
+                self.lyrics_writers = r["LYRICS"].get('LYRICS_WRITERS').split(', ')
+            else:
+                self.lyrics = None
+                self.lyrics_sync = None
+                self.lyrics_copyrights = None
+                self.lyrics_writers = None
 
 
 class Playlist:
