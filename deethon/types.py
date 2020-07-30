@@ -298,6 +298,16 @@ class Track:
                 self.lyrics_sync = None
                 self.lyrics_copyrights = None
                 self.lyrics_writers = None
+        else:
+            self.md5_origin = None
+            self.media_version = None
+            self.composer = None
+            self.author = None
+            self.copyright = None
+            self.lyrics = None
+            self.lyrics_sync = None
+            self.lyrics_copyrights = None
+            self.lyrics_writers = None
 
 
 class Playlist:
