@@ -77,11 +77,16 @@ class Session:
         if match:
             mode = match.group(1)
             content_id = int(match.group(2))
+
             if mode == "track":
                 return self.download_track(types.Track(content_id), bitrate,
                                            progress_callback)
             if mode == "album":
                 return self.download_album(types.Album(content_id), bitrate)
+
+            if mode == "playlist":
+                return self.download_playlist(types.Playlist(content_id), bitrate)
+
             raise errors.ActionNotSupported(mode)
         raise errors.InvalidUrlError(url)
 
@@ -172,10 +177,10 @@ class Session:
             stream: bool = False
     ) -> Union[Generator[Path, Any, None], Tuple[Path, ...]]:
         """
-        Downloads an album from Deezer using the specified Album object.
+        Downloads an playlist from Deezer using the specified Playlist object.
 
         Args:
-            album: An [Album][deethon.types.Album] instance.
+            playlist: An [Playlist][deethon.types.Playlist] instance.
             bitrate: The preferred bitrate to download
                 (`FLAC`, `MP3_320`, `MP3_256`, `MP3_128`).
             stream: If `true`, this method returns a generator object,
