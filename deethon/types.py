@@ -103,7 +103,10 @@ class Album:
         self.label = r["label"]
         self.link = r["link"]
         self.record_type = r["record_type"]
-        self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        if r['release_date'] != '0000-00-00':
+            self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        else:
+            self.release_date = None
         self.title = r["title"]
         self.total_tracks = r["nb_tracks"]
         self.upc = r["upc"]
@@ -256,7 +259,10 @@ class Track:
         self.preview_link = r["preview"]
         self.rank = r["rank"]
         self.replaygain_track_gain = f"{((r['gain'] + 18.4) * -1):.2f} dB"
-        self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        if r['release_date'] != '0000-00-00':
+            self.release_date = datetime.strptime(r["release_date"], "%Y-%m-%d")
+        else:
+            self.release_date = None
         self.title = r["title"]
         self.title_short = r["title_short"]
 
