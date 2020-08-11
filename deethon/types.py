@@ -312,6 +312,7 @@ class Playlist:
 
     id: int
     title: str
+    basic_tracks_data: List[Dict[str, Any]]
     description: str
     duration: int
     public: bool
@@ -359,6 +360,7 @@ class Playlist:
 
         self.id = r['id']
         self.title = r['title']
+        self.basic_tracks_data:r['tracks']['data']
         self.description = r['description']
         self.duration = r['duration']
         self.public = r['public']
@@ -373,19 +375,6 @@ class Playlist:
         self.picture_big_link = r['picture_big']
         self.picture_xl_link = r['picture_xl']
         self.checksum = r['checksum']
-
-    def basic_tracks_data(self):
-
-        r = requests.get(
-            f"https://api.deezer.com/playlist/{self.id}/tracks").json()
-
-        temp = r['data']
-
-        while 'next' in r:
-            r = requests.get(r['next']).json()
-            temp += r['data']
-
-        return temp
 
     @property
     def picture_small(self) -> bytes:
@@ -422,4 +411,4 @@ class Playlist:
         A list of [Track][deethon.types.Track] objects for each
         track in the album.
         """
-        return [Track(x["id"]) for x in self.basic_tracks_data()]
+        return [Track(x["id"]) for x in self.basic_tracks_data]
