@@ -360,7 +360,7 @@ class Playlist:
 
         self.id = r['id']
         self.title = r['title']
-        self.basic_tracks_data:r['tracks']['data']
+        self.basic_tracks_data = r['tracks']['data']
         self.description = r['description']
         self.duration = r['duration']
         self.public = r['public']
