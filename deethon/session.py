@@ -12,19 +12,24 @@ from . import errors, consts, utils, types
 class Session:
     """A session is required to connect to Deezer's unofficial API."""
 
-    def __init__(self, arl_token: str):
+    def __init__(self, arl_token: str, proxy: dict = None):
         """
         Creates a new Deezer session instance.
 
         Args:
             arl_token (str): The arl token is used to make API requests
                 on Deezer's unofficial API
-
+            proxy (dict): Proxy can be used for API requests. Pass proxy parameter as a dict like this
+                proxy = {
+                    "http": "http://username:password@amsterdam.perfect-privacy.com:3128",
+                    "https": "http://username:password@amsterdam4.perfect-privacy.com:3128",
+                }
         Raises:
             DeezerLoginError: The specified arl token is not valid.
         """
         self._arl_token: str = arl_token
         self._req = requests.Session()
+        self._req.proxies = proxy
         self._req.cookies["arl"] = self._arl_token
         self._csrf_token = "null"
         self._session_expires = 0
